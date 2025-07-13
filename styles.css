@@ -178,7 +178,7 @@ body {
 }
 
 .player-data-head {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: bold;
     width: 100%;
     padding: 5px 20px 5px 20px;
@@ -188,13 +188,17 @@ body {
 }
 
 .player-data-info {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: bold;
     padding: 5px 20px 5px 20px;
     margin-top: 10px;
     text-align: left;
     text-transform: uppercase;
     color: white;
+}
+
+#player-role, #player-id {
+    font-size: 1.75rem;
 }
 
 .category-container {
@@ -307,7 +311,7 @@ body {
     height: 90%;
     padding: 10px;
     border-radius: 0 5px 5px 0;
-    background-color: #164fbf;
+    background-color: #282829;
     color: #ffffff;
     text-align: center;
 
@@ -379,7 +383,7 @@ body {
     justify-content: center;
     align-items: center;
 
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     text-transform: uppercase;
     text-overflow:ellipsis;
@@ -542,13 +546,35 @@ body {
     background-color: #575b5c;
 }
 .command-button:nth-child(5) {
-    background-color: #0f9946;
+    background-color: #ae0d0d;
 }
 .command-button:nth-child(6) {
-    background-color: #ae0d55;
+    background-color: #0f9946;
     display: none;
 }
 .command-button:nth-child(7) {
     background-color: #0f4299;
+    display: none;
+}
+
+
+/*Seal Section*/
+.sold-seal, .unsold-seal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+    background-color: rgba(255, 0, 0, 0.85);
+    color: #fff;
+    font-size: 3rem;
+    font-weight: bold;
+    padding: 20px 40px;
+    border: 4px solid white;
+    border-radius: 10px;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 5;
+
+    /* Initially hidden */
     display: none;
 }
