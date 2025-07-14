@@ -1,14 +1,14 @@
 const handlers = []; // save references here [it will use to remove event listener of the teams]
 let state = {
-    players: [],
-    teams: [],
-    auctionCount: 0,
-    soldCount: 0,
-    unsoldCount: 0,
-    soldPlayers: [],
-    unsoldPlayers: [],
-    skippedPlayers: []
-};
+        players: [],
+        teams: [],
+        auctionCount: 0,
+        soldCount: 0,
+        unsoldCount: 0,
+        soldPlayers: [],
+        unsoldPlayers: [],
+        skippedPlayers: []
+    };
 
 //Get the player data as array of objects from the players.json file
 const getPlayersData = async () => {
@@ -128,7 +128,7 @@ function bidPlayer(team_id) {
         
     } else {                                                    //while there are existing  bids for the player
         let lastBid = player.bids[player.bids.length - 1];      //Last bid object of the player
-        
+
         // Prevent same team from bidding twice in a row
         if (lastBid.team != team_id && team.remaining_budget >= lastBid.amount + 5000) {        //Make sure bidder has more money remaining than the player's next bid amount
             bidAmount = lastBid.amount + 5000;
@@ -150,6 +150,12 @@ function bidPlayer(team_id) {
     unsoldButton.style.display = "none";
     soldButton.style.display = "inline";
 
+    //save current state to local storage
+    saveState();
+}
+
+function saveState() {
+    localStorage.setItem('auctionState', JSON.stringify(state));        //Save current state
 }
 
 function unsoldPlayer() {
@@ -170,6 +176,9 @@ function unsoldPlayer() {
     nextButton.style.display = "block";         //Show the NEXT button
 
     unsoldSeal.style.display = "block"; //Show the unsold seal
+
+    //save current state to local storage
+    saveState();
 }
 
 function soldPlayer() {
@@ -213,6 +222,9 @@ function soldPlayer() {
     //Show NEXT Button instead of SOLD Button
     soldButton.style.display = "none";        //hide the SOLD button
     nextButton.style.display = "block";         //Show the NEXT button
+
+    //save current state to local storage
+    saveState();
 }
 
 function nextPlayer() {
@@ -246,22 +258,64 @@ function skipPlayer() {
 
     //Load Next Player's Data
     nextPlayer();
+
+    //save current state to local storage
+    saveState();
+}
+
+function renderUI() {
+    if (state.auctionCount >= state.players.length) {
+        alert("The auction is finished!");
+        playerName.innerText = "AUCTION OVER";
+        return;
+    }
+    
+    showPlayerDetails(state.auctionCount);
+    for (let i = 0; i < state.teams.length; i++) {
+        showTeamData(state.teams[i].team_id);
+    }
+}
+
+function resetAll() {
+    //remove all saved data from localStorage
+    localStorage.removeItem('auctionState');
+
+    //reload the page
+    window.location.reload();
+
+    //initApp function is already designed to start a fresh auction if it can't find any saved data
 }
 
 
 // Main App Logic
 const initApp = async () => {
-    await getPlayersData(); // wait for the JSON
-    await getTeamsData();
+    //check localStorage for saved data
+    const currentState = localStorage.getItem('auctionState');
 
-    state.players = players_initial;
-    state.teams = teams_initial;
+    if (currentState) {
+        // If saved data exists, parse it and load it into our state
+        state = JSON.parse(currentState);
+        console.log("Loaded saved state from localStorage.");
 
+        // Check the status of the player at the loaded auction count
+        const lastPlayerStatus = state.players[state.auctionCount].status;
+        if (lastPlayerStatus === "sold" || lastPlayerStatus === "unsold" || lastPlayerStatus === "skipped") {
+            // If the last player's turn was over, just increment the count.
+            // We will render the new player in the next step.
+            state.auctionCount++;
+        }
+    } else {
+        // If no saved data, fetch the initial JSON files
+        console.log("No saved state found. Starting a new auction.");
+        await getPlayersData();
+        await getTeamsData();
 
-    //Initialize team data in the UI
-    for(let i = 0; i < state.teams.length; i++){
-        showTeamData(state.teams[i].team_id);
+        state.players = players_initial;
+        state.teams = teams_initial;
     }
+
+    // This block runs for BOTH new and loaded states, ensuring UI is always in sync.
+    renderUI();
 
 
     //Add event lister to every teams button
@@ -286,14 +340,21 @@ const initApp = async () => {
 
 
      
-    //show the first player data
-    showPlayerDetails(0);       //First object of the players array
+    //show the latest player data
+    showPlayerDetails(state.auctionCount);
 
     //Click event for Buttons
     unsoldButton.addEventListener("click", () => unsoldPlayer());
     nextButton.addEventListener("click", () => nextPlayer());
     soldButton.addEventListener("click", () => soldPlayer());
     skipButton.addEventListener("click", () => skipPlayer());
+
+    teamsButton.addEventListener('click', () => {
+    // This opens the page in a new tab (The browser will automatically look for index.html)
+    window.open('squads/', '_blank');
+    });
+
+    resetButton.addEventListener("click", () => resetAll());
 
 };
 
