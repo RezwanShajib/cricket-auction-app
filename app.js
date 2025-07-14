@@ -1,9 +1,14 @@
-let players = [], players_initial = [];
-let teams = [], teams_initial = []; 
-let sold_players = [], unsold_players = [], skipped_players = [];
-let total_teams = 8;
-let auction_count = 0, sold_count = 0, unsold_count = 0; //initialize the auction
 const handlers = []; // save references here [it will use to remove event listener of the teams]
+let state = {
+    players: [],
+    teams: [],
+    auctionCount: 0,
+    soldCount: 0,
+    unsoldCount: 0,
+    soldPlayers: [],
+    unsoldPlayers: [],
+    skippedPlayers: []
+};
 
 //Get the player data as array of objects from the players.json file
 const getPlayersData = async () => {
@@ -81,15 +86,15 @@ function showAmount(amount) {
 
 //this function will show specific player details in the UI
 function showPlayerDetails(i) {
-    playerName.innerText = players[i].name;
-    playerRole.innerText = players[i].role;
-    // playerPhoto.src = players[i].photo;                             //Have to change it later
-    playerBattingStyle.innerText = players[i].battingStyle;
-    playerBowlingStyle.innerText = players[i].bowlingStyle;
-    playerClub.innerText = players[i].currentClub;
-    playerCategory.innerText = players[i].category;
-    playerId.innerText = players[i].id;
-    playerBasePrice.innerText = showAmount(players[i].basePrice);
+    playerName.innerText = state.players[i].name;
+    playerRole.innerText = state.players[i].role;
+    // playerPhoto.src = state.players[i].photo;                             //Have to change it later
+    playerBattingStyle.innerText = state.players[i].battingStyle;
+    playerBowlingStyle.innerText = state.players[i].bowlingStyle;
+    playerClub.innerText = state.players[i].currentClub;
+    playerCategory.innerText = state.players[i].category;
+    playerId.innerText = state.players[i].id;
+    playerBasePrice.innerText = showAmount(state.players[i].basePrice);
     currentBidAmount.innerText = "00K";
     currentBidTeam.innerText = "NO BIDS";
 
@@ -99,9 +104,9 @@ function showTeamData(team_id) {
     let i = team_id - 11; // Team ID starts from 11 (10+1) and teamData contain first team object at index 0 (1-1)
 
     teamData[i].logo.src = `assets/teams-logo/team_${team_id}.png`;
-    teamData[i].name.innerText = teams[i].team_name;
-    teamData[i].budget_remaining.innerText = showAmount(teams[i].remaining_budget);
-    teamData[i].player_bought.innerText = teams[i].player_bought;
+    teamData[i].name.innerText = state.teams[i].team_name;
+    teamData[i].budget_remaining.innerText = showAmount(state.teams[i].remaining_budget);
+    teamData[i].player_bought.innerText = state.teams[i].player_bought;
 }
 
 function bidPlayer(team_id) {
@@ -109,36 +114,37 @@ function bidPlayer(team_id) {
     let bidAmount;
     let teamIndex = team_id - 11;
 
-    const player =  players[auction_count];      //Take a copy of the player's object
-    const team = teams[teamIndex];          //Take a copy of the team's object
+    const player =  state.players[state.auctionCount];      //Take a copy of the player's object
+    const team = state.teams[teamIndex];          //Take a copy of the team's object
 
     //Prevent bidding for any sold or unsold player
-    if(player.status != "not-auctioned"){
+    if(player.status === "unsold" || player.status === "sold"){
         return;
     }
 
-    let lastBid = player.bids[player.bids.length - 1];      //Last bid object of the player
 
     if(player.bids.length === 0 && team.remaining_budget >= player.basePrice){   //while there are no bids for the player accept any bid, Bidder must have more money remaining than the players base price
         bidAmount = player.basePrice; //base price become the first bid amount
         
     } else {                                                    //while there are existing  bids for the player
+        let lastBid = player.bids[player.bids.length - 1];      //Last bid object of the player
+        
         // Prevent same team from bidding twice in a row
         if (lastBid.team != team_id && team.remaining_budget >= lastBid.amount + 5000) {        //Make sure bidder has more money remaining than the player's next bid amount
             bidAmount = lastBid.amount + 5000;
         } else {
-            console.log(lastBid.team == team_id ? `${teams[teamIndex].team_name} tried to bid twice in a row. NOT ACCEPTED.` : `${teams[teamIndex].team_name} doesn't have enough money to bid for this player.`);
+            console.log(lastBid.team == team_id ? `${state.teams[teamIndex].team_name} tried to bid twice in a row. NOT ACCEPTED.` : `${state.teams[teamIndex].team_name} doesn't have enough money to bid for this player.`);
             return; // Don't update UI if bid not accepted
         }
     }
     
-    players[auction_count].bids.push({ team: team_id, amount: bidAmount }); //Add bid to the players original object object
-    console.log(`${players[auction_count].name} is bidded by ${teams[teamIndex].team_name}`);
+    state.players[state.auctionCount].bids.push({ team: team_id, amount: bidAmount }); //Add bid to the state.players original object object
+    console.log(`${state.players[state.auctionCount].name} is bidded by ${state.teams[teamIndex].team_name}`);
 
     //Update the UI
     currentBidAmount.innerText = showAmount(bidAmount);
-    currentBidTeam.innerText = teams[teamIndex].team_name;
-    document.querySelector(".current-bid-team").style.backgroundColor = teams[teamIndex].color;
+    currentBidTeam.innerText = state.teams[teamIndex].team_name;
+    document.querySelector(".current-bid-team").style.backgroundColor = state.teams[teamIndex].color;
 
     //Show SOLD button instead of UNSOLD button
     unsoldButton.style.display = "none";
@@ -147,10 +153,18 @@ function bidPlayer(team_id) {
 }
 
 function unsoldPlayer() {
-    unsold_players.push(players[auction_count].id);   //Take the player id in the unsold_players list
-    players[auction_count].status = "unsold";       // change the player status to unsold
+    //Prevent player to unsold after a bid is placed
+    if(state.players[state.auctionCount].bids.length > 0){
+        console.log("A player can't be unsold because atleast one bid is placed.");
+        return;
+    }
 
-    unsold_count++;             //Increamented the unsold count
+    state.unsoldPlayers.push(state.players[state.auctionCount].id);   //Take the player id in the state.unsoldPlayers list
+    state.players[state.auctionCount].status = "unsold";       // change the player status to unsold
+
+    state.unsoldCount++;             //Increamented the unsold count
+
+    console.log(`${state.players[state.auctionCount].name} remains unsold.`)
 
     unsoldButton.style.display = "none";        //hide the UNSOLD button
     nextButton.style.display = "block";         //Show the NEXT button
@@ -159,30 +173,36 @@ function unsoldPlayer() {
 }
 
 function soldPlayer() {
-    const player = players[auction_count];  //current_player
-    sold_players.push(player.id);       //add player id in the sold players list
+    //prevent player to be sold until a bid is placed
+    if(state.players[state.auctionCount].bids.length === 0){
+        console.log("Can't sold this player because no bid is placed");
+        return;
+    }
+
+    const player = state.players[state.auctionCount];  //current_player
+    state.soldPlayers.push(player.id);       //add player id in the sold players list
 
     //change the status of the player at the main player object at the players array
-    players[auction_count].status = "sold";
+    state.players[state.auctionCount].status = "sold";
 
-    sold_count++;       //increase the sold player count
+    state.soldCount++;       //increase the sold player count
 
     //Define the last bid of the player
     const lastBid = player.bids[player.bids.length - 1];        //take the final bid of the players
 
     //Update the main player object
-    players[auction_count].finalPrice = lastBid.amount;
-    players[auction_count].team = lastBid.team;
+    state.players[state.auctionCount].finalPrice = lastBid.amount;
+    state.players[state.auctionCount].team = lastBid.team;
 
     const teamIndex = lastBid.team - 11;         //team_id - 11 [Team ID starts from 11]
 
     //update the main team object
-    teams[teamIndex].players.push(player.id);       //add the player id in the teams' player list
-    teams[teamIndex].player_bought++;               //Increase total numbers of player
-    teams[teamIndex].remaining_budget -= lastBid.amount;        //Update teams' remaining budget
-    teams[teamIndex].total_cost += lastBid.amount;        //Update teams' total cost
+    state.teams[teamIndex].players.push(player.id);       //add the player id in the state.teams' player list
+    state.teams[teamIndex].player_bought++;               //Increase total numbers of player
+    state.teams[teamIndex].remaining_budget -= lastBid.amount;        //Update teams' remaining budget
+    state.teams[teamIndex].total_cost += lastBid.amount;        //Update teams' total cost
 
-
+    console.log(`${player.name} is sold to ${state.teams[teamIndex].team_name}`);
 
     //Update the UI with updated team data
     showTeamData(lastBid.team);
@@ -196,10 +216,12 @@ function soldPlayer() {
 }
 
 function nextPlayer() {
-    auction_count++;        //Increase the auction count
+    state.auctionCount++;        //Increase the auction count
 
     //Show next players' data in the UI
-    showPlayerDetails(auction_count);
+    showPlayerDetails(state.auctionCount);
+
+    console.log(`${state.players[state.auctionCount].name}'s data loaded`);
 
     //Hide NEXT button and Show UNSOLD Button
     nextButton.style.display = "none";
@@ -210,19 +232,35 @@ function nextPlayer() {
     soldSeal.style.display = "none"; //Hide the sold seal
 }
 
+function skipPlayer() {
+    //Prevent skipping a player once Bidded
+    if(state.players[state.auctionCount].bids.length != 0) {
+        console.log("Can't skip this player because bid is placed.");
+        return;
+    }
+
+    state.players[state.auctionCount].status = "skipped";      //Change the player status to "skipped"
+    console.log(`${state.players[state.auctionCount].name} is skipped`);
+
+    state.skippedPlayers.push(state.players[state.auctionCount].id);        //add players id to skipped players list
+
+    //Load Next Player's Data
+    nextPlayer();
+}
+
 
 // Main App Logic
 const initApp = async () => {
     await getPlayersData(); // wait for the JSON
     await getTeamsData();
 
-    players = players_initial;
-    teams = teams_initial;
+    state.players = players_initial;
+    state.teams = teams_initial;
 
 
     //Initialize team data in the UI
-    for(let i = 0; i < teams.length; i++){
-        showTeamData(teams[i].team_id);
+    for(let i = 0; i < state.teams.length; i++){
+        showTeamData(state.teams[i].team_id);
     }
 
 
@@ -236,7 +274,7 @@ const initApp = async () => {
 
     
 
-    for (let i = 0; i < teams.length; i++) {
+    for (let i = 0; i < state.teams.length; i++) {
         const teamElement = document.getElementById(`team-${i + 1}`);
         const handler = makeBidHandler(i + 11); // create the handler for this team
         handlers.push(handler);                 // save the reference
@@ -255,6 +293,7 @@ const initApp = async () => {
     unsoldButton.addEventListener("click", () => unsoldPlayer());
     nextButton.addEventListener("click", () => nextPlayer());
     soldButton.addEventListener("click", () => soldPlayer());
+    skipButton.addEventListener("click", () => skipPlayer());
 
 };
 
