@@ -104,7 +104,7 @@ body {
 }
 
 .squareBox {
-    height: 80%;
+    height: 65%;
     aspect-ratio: 1 / 1; /*The box is a square*/
     background-color: rgb(167, 160, 160);
     border: 3px solid rgb(255, 255, 255);
