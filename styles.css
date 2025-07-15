@@ -533,6 +533,21 @@ body {
     cursor: pointer;
 }
 
+.undo-redo {
+    width: 20%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#undo-button, #redo-button {
+    width: 45%;
+    height: 100%;
+    background-color: #730f1f;
+}
+
 .command-button:nth-child(1) {
     background-color: #ae0d55;
 }
