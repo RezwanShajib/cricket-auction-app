@@ -1,3 +1,5 @@
+let handlers = []; // save references here [it will use to remove event listener of the teams]
+
 //History stack
 let history = {
         undoStack: [],
@@ -289,10 +291,10 @@ function soldPlayer() {
 }
 
 function nextPlayer() {
-    state.auctionCount++;        //Increase the auction count
+    state.auctionCount++;         //Increase the auction count
 
     //Show next players' data in the UI
-    showPlayerDetails(state.auctionCount);
+    renderUI();
 
     console.log(`${state.players[state.auctionCount].name}'s data loaded`);
 
@@ -326,7 +328,17 @@ function skipPlayer() {
 function renderUI() {
     if (state.auctionCount >= state.players.length) {
         alert("The auction is finished!");
-        playerName.innerText = "AUCTION OVER";
+
+        state.auctionCount = 0;
+        
+        showPlayerDetails(0);
+
+        for (let i = 0; i < state.teams.length; i++) {
+        showTeamData(state.teams[i].team_id);
+        }
+
+        endAuction();
+
         return;
     }
     
@@ -428,6 +440,29 @@ function redoChange() {
     }
 }
 
+function endAuction() {
+    console.log("All players have been auctioned. The auction is now closed.");
+    
+    // Disable all action buttons
+    soldButton.disabled = true;
+    unsoldButton.disabled = true;
+    skipButton.disabled = true;
+    nextButton.disabled = true;
+    undoButton.disabled = true;
+    redoButton.disabled = true;
+    
+    // Disable bidding by removing all team click listeners
+    for (let i = 0; i < state.teams.length; i++) {
+        const teamElement = document.getElementById(`team-${i + 1}`);
+        if (handlers[i]) {
+            teamElement.removeEventListener("click", handlers[i]);
+        }
+    }
+
+    // Save the final state
+    saveData();
+}
+
 // Main App Logic
 const initApp = async () => {
     // Load static tournament data first and update the UI immediately.
@@ -480,7 +515,6 @@ const initApp = async () => {
         }
     }
 
-    const handlers = []; // save references here [it will use to remove event listener of the teams]
     
     for (let i = 0; i < state.teams.length; i++) {
         const teamElement = document.getElementById(`team-${i + 1}`);
