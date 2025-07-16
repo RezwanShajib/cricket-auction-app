@@ -1,0 +1,411 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: #020024;
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 46%, rgba(219, 169, 68, 1) 100%);
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.king-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    gap: 5px;
+    padding: 20px 20px 0 20px;
+
+    width: 100vw;
+    height: 100vh;
+
+    justify-content: center;
+    align-items: center;
+    
+    /* background: #020024;
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 46%, rgba(219, 169, 68, 1) 100%); */
+    border: 2px solid black;
+    box-sizing: border-box;
+}
+
+.player-container, .header {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+
+/* Header Section -------------------------------------------------------------------------------------- */
+.header {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    display: flex;
+    padding: 0;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    height: 8vh;
+}
+
+#logo-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 11vh;
+}
+.tournament-logo {
+    max-height: 100%;             /* Limit logo height */
+    max-width: 100%;               /* Limit logo width */
+    width: auto;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    background-color: wheat;
+    border-radius: 10px;
+    align-self: center;
+    justify-self: center;
+    /* Remove justify-content and align-items here, not needed for img */
+}
+
+.team-container {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    height: 100%;
+    margin: 10px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    /* border: 3px solid white; */
+    cursor: pointer;
+    flex-wrap: wrap;
+}
+
+
+.logo-container {
+    width: 30%;
+    height: 100%;
+    background-color: white;
+    border-radius: 10px 0 0 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.name-container {
+    width: 70%;
+    height: 100%;
+    background-color:rgb(238, 234, 234);
+    color: rgb(175, 25, 25);
+    border-radius: 0 10px 10px 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-overflow:ellipsis;
+    overflow: hidden;
+
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+.logo-img {
+    max-height: 90%;
+    max-width: 90%;
+    aspect-ratio: 1/ 1;
+    object-fit: cover;
+    border-radius: 50%;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease; */
+    background-color: white;
+}
+
+/* ---------------------------------------------------------------------------------------------------------- */
+
+/* Data Section---------------------------------------------------------------------------------------------- */
+#data-container {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-box {
+    width: 30%;
+    height: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.info-title {
+    width: 60%;
+    height: 100%;
+    background-color: #bbb9c5;
+    box-sizing: border-box;
+
+    border-radius: 10px 0 0 10px;
+    padding: 12px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+
+}
+
+.info-data {
+    width: 60%;
+    height: 100%;
+    background-color: white;
+    color: rgb(56, 54, 186);
+    box-sizing: border-box;
+
+    border-radius: 0 10px 10px 0;
+    padding: 12px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    
+}
+
+/* -------------------------------------------------------------------------------------------------------------------- */
+
+
+/* Player Cards ------------------------------------------------------------------------------------------------------- */
+
+.player-container {
+    grid-column: 1/ -1;
+    grid-row: 3/ span 3;
+    background: none;
+    /* display: flex;
+    gap: 10px; */
+}
+
+.player-card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+}
+
+.role-title {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px 20px 5px 20px;
+    border-bottom: 4px solid #59CD90;
+    color: #59CD90;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 10px 0 10px 0;
+}
+
+.player-card {
+    width: 19%;
+    aspect-ratio: 3 / 1;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    text-transform: uppercase;
+    font-weight: bold;
+
+    border-radius: 12px;
+    /* border: 2px solid rgb(255, 255, 255); */
+    box-sizing: border-box;
+}
+
+.image-box {
+    width: 33.33%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color:white;
+    border-radius: 10px 0 0 10px;
+}
+
+.player-photo {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 10px 0 0 10px;
+}
+
+.player-name {
+    width: 66.67%;
+    height: 40%;
+
+    background-color: white;
+    color: #F19A3E;
+
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    border-radius: 0 10px 0 0;
+    padding: 5px 0 5px 10px;
+
+    box-sizing: border-box;
+}
+
+.batting-style, .bowling-style {
+    width: 66.67%;
+    height: 15%;
+
+    background-color: #dcdae3;
+
+    font-size: 0.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    padding: 5px 0 5px 10px;
+
+    box-sizing: border-box;
+}
+
+.final-price {
+    width: 66.67%;
+    height: 30%;
+
+    background-color: rgb(58, 87, 173);
+    color: white;
+
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    border-radius: 0 0 10px 0;
+    padding: 2px 0 2px 2px;
+
+    box-sizing: border-box;
+}
+
+#bowler-container {
+    grid-column: 1/ -1;
+    grid-row: 6/ span 3;
+}
+
+#allrounder-container {
+    grid-column: 1/ -1;
+    grid-row: 9/ span 3;
+}
+
+#wk-container {
+    grid-column: 1/ -1;
+    grid-row: 12/ span 2;
+}
+
+#logo-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 11vh;
+}
+.tournament-logo {
+    max-height: 100%;             /* Limit logo height */
+    max-width: 100%;               /* Limit logo width */
+    width: auto;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    background-color: wheat;
+    border-radius: 10px;
+    align-self: center;
+    justify-self: center;
+    /* Remove justify-content and align-items here, not needed for img */
+}
+
+.team-container {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    height: 100%;
+    margin: 10px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    /* border: 3px solid white; */
+    cursor: pointer;
+    flex-wrap: wrap;
+}
+
+
+.logo-container {
+    width: 30%;
+    height: 100%;
+    background-color: white;
+    border-radius: 10px 0 0 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.name-container {
+    width: 70%;
+    height: 100%;
+    background-color:rgb(238, 234, 234);
+    color: rgb(175, 25, 25);
+    border-radius: 0 10px 10px 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-overflow:ellipsis;
+    overflow: hidden;
+
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+.logo-img {
+    max-height: 90%;
+    max-width: 90%;
+    aspect-ratio: 1/ 1;
+    object-fit: cover;
+    border-radius: 50%;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease; */
+    background-color: white;
+}
