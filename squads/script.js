@@ -1,4 +1,5 @@
 let state;
+
 let selectedTeam;
 
 //DOM: Team Header
@@ -64,7 +65,7 @@ function showAmount(amount) {
 }
 
 function showPlayers(teamId) {
-    const team = state.teams.find(t => t.team_id === teamId);
+    let team = state.teams.find(t => t.team_id === teamId);
     //If team not found, select the first team by default
     if(!team){
         team = state.teams[0];
@@ -139,6 +140,12 @@ function showPlayers(teamId) {
 }
 
 function runSquadsPage() {
+    // Get the team ID from the URL (e.g., ?team=11)
+    const urlParams = new URLSearchParams(window.location.search);
+    selectedTeam = parseInt(urlParams.get('team')); // Get the ID and convert to a number
+
+    
+
     const savedDataJSON = localStorage.getItem('auctionData');
 
     if (savedDataJSON) {
@@ -171,11 +178,14 @@ function runSquadsPage() {
         return;
     }
 
+    if(!selectedTeam){
+        selectedTeam = state.teams[0].team_id;
+    }
+
     //Render teams data
     renderTeamsData();
 
     //Show Team's players list
-    selectedTeam = state.teams[0].team_id;
     showPlayers(selectedTeam);
 }
 
