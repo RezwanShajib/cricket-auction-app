@@ -271,8 +271,8 @@ function soldPlayer() {
     //update the main team object
     state.teams[teamIndex].players.push(player.id);       //add the player id in the state.teams' player list
     state.teams[teamIndex].player_bought++;               //Increase total numbers of player
-    state.teams[teamIndex].remaining_budget -= lastBid.amount;        //Update teams' remaining budget
     state.teams[teamIndex].total_cost += lastBid.amount;        //Update teams' total cost
+    state.teams[teamIndex].remaining_budget = state.teams[teamIndex].team_budget - state.teams[teamIndex].total_cost;        //Update teams' remaining budget
 
     console.log(`${player.name} is sold to ${state.teams[teamIndex].team_name}`);
 
