@@ -292,6 +292,7 @@ function soldPlayer() {
 
 function nextPlayer() {
     state.auctionCount++;         //Increase the auction count
+    saveHistory();
 
     //Show next players' data in the UI
     renderUI();
@@ -509,11 +510,17 @@ const initApp = async () => {
 
     //Add event lister to every teams button
     //We save the references because when we need to remove the event listener then we can
-    function makeBidHandler(teamId) {
-        return function () {
+   function makeBidHandler(teamId) {
+    return function (event) { // Add 'event' as an argument
+        if (event.ctrlKey) {
+            // If shift key is pressed, open the squad page
+            window.open(`squads/?team=${teamId}`, '_blank');
+        } else {
+            // Otherwise, place a bid
             bidPlayer(teamId);
         }
     }
+}
 
     
     for (let i = 0; i < state.teams.length; i++) {
@@ -521,6 +528,7 @@ const initApp = async () => {
         const handler = makeBidHandler(i + 11); // create the handler for this team
         handlers.push(handler);                 // save the reference
         teamElement.addEventListener("click", handler);
+        
     }
 
 
@@ -540,6 +548,37 @@ const initApp = async () => {
     resetButton.addEventListener("click", () => resetAll());
     undoButton.addEventListener("click", () => undoChange());
     redoButton.addEventListener("click", () => redoChange());
+
+    //Add keyboard command for sold unsold next
+    // A single, efficient listener for all keyboard shortcuts
+    window.addEventListener("keydown", function(event){
+        // Check for number keys 1-8 for bidding
+        const keyNumber = parseInt(event.key);
+        if (!isNaN(keyNumber) && keyNumber >= 1 && keyNumber <= 8) {
+            bidPlayer(keyNumber + 10); // Converts key 1 to team_id 11, 2 to 12, etc.
+            return; // Exit after handling the bid
+        }
+
+        // Handle other letter-based shortcuts
+        switch(event.key.toLowerCase()){
+            case "u":
+                unsoldPlayer();
+                break;
+            case "s":
+                soldPlayer();
+                break;
+            case "enter":
+                nextPlayer();
+                break;
+            case "z":
+                if(event.ctrlKey && event.shiftKey) {
+                    redoChange()
+                } else if (event.ctrlKey) {
+                    undoChange();
+                }
+                break;
+        }
+    });
 };
 
 // 🔷 Make sure to run when DOM is loaded
