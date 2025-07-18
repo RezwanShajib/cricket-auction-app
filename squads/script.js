@@ -29,6 +29,7 @@ function renderTeamsData() {
         //Create new team card for header
         let newTeam = document.createElement("div");
         newTeam.classList.add("team-container");
+        newTeam.style.backgroundColor = state.teams[i].color;
         newTeam.id = "team-" + teamID;
 
         newTeam.innerHTML = `
@@ -64,200 +65,77 @@ function showAmount(amount) {
 
 function showPlayers(teamId) {
     const team = state.teams.find(t => t.team_id === teamId);
+    //If team not found, select the first team by default
+    if(!team){
+        team = state.teams[0];
+    }
+
+    //Clear the previously rendered team roaster
+    batterSection.innerHTML = ``;
+    bowlerSection.innerHTML = ``;
+    allrounderSection.innerHTML = ``;
+    wkSection.innerHTML = ``;
+
+    //Set all teams background colors to their default
+    for(let i = 0; i < state.teams.length; i++){
+        const teamCard = document.getElementById(`name-container-${state.teams[i].team_id}`);
+        teamCard.style.backgroundColor = state.teams[i].color;
+        teamCard.style.color = "white";
+    }
+
+    //Get all players for the selected team
+    const teamPlayers = team.players.map(playerId => state.players.find(p => p.id == playerId));
     
+    //Group players by role
+    const batters = teamPlayers.filter(p => p && p.role == "Batter");
+    const bowlers = teamPlayers.filter(p => p && p.role == "Bowler");
+    const allrounders = teamPlayers.filter(p => p && p.role == "All-Rounder");
+    const wks = teamPlayers.filter(p => p && p.role == "Wicket-Keeper");
+
+    //Update players count
+    batterCount.innerText = batters.length;
+    bowlerCount.innerText = bowlers.length;
+    allrounderCount.innerText = allrounders.length;
+    wkCount.innerText = wks.length;
+    
+    //Set the selected teams background color to different
+    const selectedTeamCard = document.getElementById(`name-container-${teamId}`);
+    selectedTeamCard.style.color = team.color;
+    selectedTeamCard.style.backgroundColor = "#dcdae8ff";
+
     //Team Data Update
     playersSigned.innerText = team.players.length;
     spendBudget.innerText = showAmount(team.total_cost);
     remainingBudget.innerText = showAmount(team.remaining_budget);
 
-    //Update Selected Team color
-    const selectedTeamCard = document.getElementById(`name-container-${team.team_id}`);
-    selectedTeamCard.style.backgroundColor = team.color;
-    selectedTeamCard.style.color = "white";
+    //Create Teams Player Card
+    const createCardHTML = (player) => `
+        <div class="player-card" id="player-${player.id}">
+            <div class="image-box"><img src="../assets/players-photo/player_${player.id}.jpg" alt="${player.name}" class="player-photo"></div>
+            <div class="player-name"><span>${player.name}</span></div>
+            <div class="batting-style">🏏&nbsp;<span>${player.battingStyle}</span></div>
+            <div class="bowling-style">⚾&nbsp;<span>${player.bowlingStyle || 'N/A'}</span></div>
+            <div class="final-price">$ &nbsp; <span>${showAmount(player.finalPrice)}</span></div>
+        </div>`;
+        
+    batters.forEach(p => batterSection.innerHTML += createCardHTML(p));
+    bowlers.forEach(p => batterSection.innerHTML += createCardHTML(p));
+    allrounders.forEach(p => batterSection.innerHTML += createCardHTML(p));
+    wks.forEach(p => batterSection.innerHTML += createCardHTML(p));
 
-    //Show all the players list of the team
-    //Batters
-
-    let totalBatters = 0;
-
-    for(let i = 0; i < team.players.length; i++){
-        //Find the player with the id stored in team players list
-        const player = state.players.find(p => p.id === team.players[i]);
-        /* In team's object, all players id are saved */
-
-
-        if(player.role === "Batter") {
-            let newPlayerCard = document.createElement("div");
-            newPlayerCard.classList.add("player-card");
-
-            newPlayerCard.id = `player-${player.id}`;
-
-            newPlayerCard.innerHTML = `
-                    <div class="image-box"><img src="../assets/players-photo/player_${player.id}.jpg" alt="Player Photo" class="player-photo"></div>
-                    <div class="player-name"><span id="player-name">${player.name}</span></div>
-                    <div class="batting-style">🏏&nbsp;<span id="batting-style">${player.battingStyle}</span></div>
-                    <div class="bowling-style">⚾ &nbsp;<span id="bowling-style">${player.bowlingStyle}</span></div>
-                    <div class="final-price">$ &nbsp; <span id="final-price">${showAmount(player.finalPrice)}</span></div>
-            `;
-            //Push it inside batters section
-            batterSection.append(newPlayerCard);
-
-            totalBatters++;
+    //If there is no player to show
+    const showNoPlayer = (role, section) => {
+        if(role.length !== 0){
+            return;
+        } else {
+            section.innerHTML = `<div class="no-players">No player to show.</div>`;
         }
-
     }
 
-    //Show Batter counts in UI
-    batterCount.innerText = totalBatters;
-    
-    //If no batters to show
-    if(totalBatters === 0){
-        let msg = document.createElement("div");
-        msg.classList.add("no-players");
-
-        msg.innerText = "No player to show.";
-
-        //Add message inside the batters section
-        batterSection.append(msg);
-    }
-
-
-    //Bowlers
-
-    let totalBowlers = 0;
-
-    for(let i = 0; i < team.players.length; i++){
-        //Find the player with the id stored in team players list
-        const player = state.players.find(p => p.id === team.players[i]);
-        /* In team's object, all players id are saved */
-
-
-        if(player.role === "Bowler") {
-            let newPlayerCard = document.createElement("div");
-            newPlayerCard.classList.add("player-card");
-
-            newPlayerCard.id = `player-${player.id}`;
-
-            newPlayerCard.innerHTML = `
-                    <div class="image-box"><img src="../assets/players-photo/player_${player.id}.jpg" alt="Player Photo" class="player-photo"></div>
-                    <div class="player-name"><span id="player-name">${player.name}</span></div>
-                    <div class="batting-style">🏏&nbsp;<span id="batting-style">${player.battingStyle}</span></div>
-                    <div class="bowling-style">⚾ &nbsp;<span id="bowling-style">${player.bowlingStyle}</span></div>
-                    <div class="final-price">$ &nbsp; <span id="final-price">${showAmount(player.finalPrice)}</span></div>
-            `;
-            //Push it inside batters section
-            bowlerSection.append(newPlayerCard);
-
-            totalBowlers++;
-        }
-
-    }
-
-    //Show Bowler counts in UI
-    bowlerCount.innerText = totalBowlers;
-    
-    //If no bowler to show
-    if(totalBowlers === 0){
-        let msg = document.createElement("div");
-        msg.classList.add("no-players");
-
-        msg.innerText = "No player to show.";
-
-        //Add message inside the bowlers section
-        bowlerSection.append(msg);
-    }
-
-
-    //All-Rounders
-
-    let totalAllRounders = 0;
-
-    for(let i = 0; i < team.players.length; i++){
-        //Find the player with the id stored in team players list
-        const player = state.players.find(p => p.id === team.players[i]);
-        /* In team's object, all players id are saved */
-
-
-        if(player.role === "All-Rounder") {
-            let newPlayerCard = document.createElement("div");
-            newPlayerCard.classList.add("player-card");
-
-            newPlayerCard.id = `player-${player.id}`;
-
-            newPlayerCard.innerHTML = `
-                    <div class="image-box"><img src="../assets/players-photo/player_${player.id}.jpg" alt="Player Photo" class="player-photo"></div>
-                    <div class="player-name"><span id="player-name">${player.name}</span></div>
-                    <div class="batting-style">🏏&nbsp;<span id="batting-style">${player.battingStyle}</span></div>
-                    <div class="bowling-style">⚾ &nbsp;<span id="bowling-style">${player.bowlingStyle}</span></div>
-                    <div class="final-price">$ &nbsp; <span id="final-price">${showAmount(player.finalPrice)}</span></div>
-            `;
-            //Push it inside All-Rounders section
-            batterSection.append(newPlayerCard);
-
-            totalAllRounders++;
-        }
-
-    }
-
-    //Show All-Rounders counts in UI
-    allrounderCount.innerText = totalAllRounders;
-    
-    //If no All-Rounder to show
-    if(totalAllRounders === 0){
-        let msg = document.createElement("div");
-        msg.classList.add("no-players");
-
-        msg.innerText = "No player to show.";
-
-        //Add message inside the All-Rounder section
-        allrounderSection.append(msg);
-    }
-
-
-    //Wicket-Keepers
-
-    let totalWK = 0;
-
-    for(let i = 0; i < team.players.length; i++){
-        //Find the player with the id stored in team players list
-        const player = state.players.find(p => p.id === team.players[i]);
-        /* In team's object, all players id are saved */
-
-
-        if(player.role === "Wicket-Keeper") {
-            let newPlayerCard = document.createElement("div");
-            newPlayerCard.classList.add("player-card");
-
-            newPlayerCard.id = `player-${player.id}`;
-
-            newPlayerCard.innerHTML = `
-                    <div class="image-box"><img src="../assets/players-photo/player_${player.id}.jpg" alt="Player Photo" class="player-photo"></div>
-                    <div class="player-name"><span id="player-name">${player.name}</span></div>
-                    <div class="batting-style">🏏&nbsp;<span id="batting-style">${player.battingStyle}</span></div>
-                    <div class="bowling-style">⚾ &nbsp;<span id="bowling-style">${player.bowlingStyle}</span></div>
-                    <div class="final-price">$ &nbsp; <span id="final-price">${showAmount(player.finalPrice)}</span></div>
-            `;
-            //Push it inside batters section
-            batterSection.append(newPlayerCard);
-
-            totalWK++;
-        }
-
-    }
-
-    //Show WK counts in UI
-    wkCount.innerText = totalWK;
-    
-    //If no WKs to show
-    if(totalWK === 0){
-        let msg = document.createElement("div");
-        msg.classList.add("no-players");
-
-        msg.innerText = "No player to show.";
-
-        //Add message inside the WKs section
-        wkSection.append(msg);
-    }
+    showNoPlayer(batters, batterSection);
+    showNoPlayer(bowlers, bowlerSection);
+    showNoPlayer(allrounders, allrounderSection);
+    showNoPlayer(wks, wkSection);
 }
 
 function runSquadsPage() {
