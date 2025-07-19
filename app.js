@@ -107,7 +107,7 @@ function showTournamentDetails() {
     // Combine the name and year for a more descriptive title
     const fullTitle = `${state.tournament.name} - ${state.tournament.year}`;
     
-    document.querySelector(".tournament-logo").src = state.tournament.logo;
+    document.querySelector(".tournament-logo").src = "/assets/tournament-logo.png";
     document.querySelector(".headline").innerText = fullTitle;
 }
 
@@ -115,7 +115,8 @@ function showTournamentDetails() {
 function showPlayerDetails(i) {
     playerName.innerText = state.players[i].name;
     playerRole.innerText = state.players[i].role;
-    // playerPhoto.src = state.players[i].photo;                             //Have to change it later
+    playerPhoto.src = state.players[i].photo;                             //Have to change it later
+    playerPhoto.alt = state.players[i].name;
     playerBattingStyle.innerText = state.players[i].battingStyle;
     playerBowlingStyle.innerText = state.players[i].bowlingStyle;
     playerClub.innerText = state.players[i].currentClub;
@@ -350,12 +351,17 @@ function renderUI() {
 }
 
 function resetAll() {
-    //remove all saved data from localStorage
-    localStorage.removeItem('auctionData');
+    const securityKey = prompt("Enter the security key to reset:");
 
-    //reload the page
-    window.location.reload();
+    if(securityKey === "shajib19"){
+        //remove all saved data from localStorage
+        localStorage.removeItem('auctionData');
 
+        //reload the page
+        window.location.reload();
+    } else {
+        alert("Wrong security key!")
+    }
     //initApp function is already designed to start a fresh auction if it can't find any saved data
 }
 
@@ -368,9 +374,9 @@ function saveHistory() {
     history.undoStack.push(JSON.parse(JSON.stringify(state)));
 
     //clear oldest history (Optional)
-    // if(history.undoStack.length > 20) {
-    //     history.undoStack.shift();
-    // }
+    if(history.undoStack.length > 20) {
+        history.undoStack.shift();
+    }
 }
 
 function undoChange() {
