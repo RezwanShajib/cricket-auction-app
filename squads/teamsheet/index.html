@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Sheet</title>
+    <link rel="stylesheet" href="teamsheet.css">
+</head>
+<body>
+    <div class="page">
+        <header class="page-header">
+            <img id="tournament-logo" src="" alt="Logo" class="logo">
+            <h1 id="tournament-name">Tournament Name</h1>
+        </header>
+
+        <section class="team-info">
+            <div class="info-item team-name-row"><strong>Team:</strong> <span id="team-name"></span></div>
+            <div class="info-item"><strong>Players Signed:</strong> <span id="players-signed"></span></div>
+            <div class="info-item"><strong>Total Spend:</strong> <span id="total-spend"></span></div>
+            <div class="info-item"><strong>Total Budget:</strong> <span id="total-budget"></span></div>
+            <div class="info-item"><strong>Budget Remaining:</strong> <span id="budget-remaining"></span></div>
+        </section>
+
+        <main class="player-table">
+            <h2>Player List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Category</th>
+                        <th>Player Name</th>
+                        <th>Role</th>
+                        <th>Base Price</th>
+                        <th>Sold Price</th>
+                    </tr>
+                </thead>
+                <tbody id="player-list">
+                    </tbody>
+            </table>
+        </main>
+
+        <footer class="signatures">
+            <div class="signature-box">
+                <p>_________________________</p>
+                <p>Auction Commissioner</p>
+            </div>
+            <div class="signature-box">
+                <p>_________________________</p>
+                <p>Director</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="teamsheet.js"></script>
+</body>
+</html>
