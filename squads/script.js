@@ -9,6 +9,8 @@ const header = document.getElementById("header");
 const playersSigned = document.getElementById("players-signed");
 const spendBudget = document.getElementById("budget-spend");
 const remainingBudget = document.getElementById("budget-remaining");
+//Print Button
+const printButton = document.getElementById("print-box");
 
 //Players Section
 const batterSection = document.getElementById("batter-section");
@@ -120,9 +122,9 @@ function showPlayers(teamId) {
         </div>`;
         
     batters.forEach(p => batterSection.innerHTML += createCardHTML(p));
-    bowlers.forEach(p => batterSection.innerHTML += createCardHTML(p));
-    allrounders.forEach(p => batterSection.innerHTML += createCardHTML(p));
-    wks.forEach(p => batterSection.innerHTML += createCardHTML(p));
+    bowlers.forEach(p => bowlerSection.innerHTML += createCardHTML(p));
+    allrounders.forEach(p => allrounderSection.innerHTML += createCardHTML(p));
+    wks.forEach(p => wkSection.innerHTML += createCardHTML(p));
 
     //If there is no player to show
     const showNoPlayer = (role, section) => {
@@ -187,6 +189,29 @@ function runSquadsPage() {
 
     //Show Team's players list
     showPlayers(selectedTeam);
+
+    //When the print Button is clicked
+    printButton.style.cursor = "pointer";
+    printButton.addEventListener('click', () => {
+        if(selectedTeam) {
+            window.open(`/squads/teamsheet/?team=${selectedTeam}`, '_blank');
+        } else {
+            // Handle case where first team is shown by default
+            const firstTeamId = state.teams[0].team_id;
+            window.open(`/squads/teamsheet/?team=${firstTeamId}`, '_blank');
+        }
+    });
+
+    printButton.addEventListener("keydown", (event) => {
+        if(event.key == "p"){
+            if(selectedTeam) {
+            window.open(`/squads/teamsheet/?team=${selectedTeam}`, '_blank');
+        } else {
+            // Handle case where first team is shown by default
+            const firstTeamId = state.teams[0].team_id;
+            window.open(`/squads/teamsheet/?team=${firstTeamId}`, '_blank');
+        }
+        }});
 }
 
 document.addEventListener("DOMContentLoaded", runSquadsPage);
