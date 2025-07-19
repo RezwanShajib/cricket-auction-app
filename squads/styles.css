@@ -1,9 +1,20 @@
+/* ======== THEME VARIABLES ======== */
+:root {
+    --color-background-main: #1E293B;       /* Slate 800 */
+    --color-panel-primary: #334155;        /* Slate 700 */
+    --color-panel-secondary: #475569;      /* Slate 600 */
+    --color-text-primary: #F1F5F9;         /* Slate 100 */
+    --color-text-secondary: #94A3B8;       /* Slate 400 */
+    --color-accent-mint: #5EEAD4;          /* Teal 300 */
+    --color-accent-dark: #111827;          /* Darkest color for text on light backgrounds */
+}
+
+/* ======== GENERAL STYLES ======== */
 body {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background: #020024;
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 46%, rgba(219, 169, 68, 1) 100%);
+    background: var(--color-background-main);
     width: 100vw;
     height: 100vh;
     box-sizing: border-box;
@@ -15,28 +26,22 @@ body {
     grid-template-rows: repeat(12, 1fr);
     gap: 5px;
     padding: 20px 20px 0 20px;
-
     width: 100vw;
     height: 100vh;
-
     justify-content: center;
     align-items: center;
-    
-    /* background: #020024;
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 46%, rgba(219, 169, 68, 1) 100%); */
-    border: 2px solid black;
+    border: none; /* Removed border */
     box-sizing: border-box;
 }
 
 .player-container, .header {
-    background-color: white;
+    background-color: transparent; /* Changed */
     width: 100%;
     height: 100%;
     box-sizing: border-box;
 }
 
-
-/* Header Section -------------------------------------------------------------------------------------- */
+/* ======== HEADER SECTION ======== */
 .header {
     grid-column: 1 / -1;
     grid-row: 1;
@@ -54,83 +59,73 @@ body {
     align-items: center;
     height: 100%;
 }
+
 .tournament-logo {
-    max-height: 100%;             /* Limit logo height */
-    max-width: 100%;               /* Limit logo width */
+    max-height: 100%;
+    max-width: 100%;
     width: auto;
     height: auto;
     aspect-ratio: 1 / 1;
     object-fit: contain;
-    background-color: wheat;
+    background-color: var(--color-panel-secondary); /* Changed */
     border-radius: 10px;
     align-self: center;
     justify-self: center;
-    /* Remove justify-content and align-items here, not needed for img */
 }
 
 .team-container {
     display:flex;
-    flex-direction: column;
+    flex-direction: row; /* Changed for better alignment */
     justify-content: center;
     align-items: center;
-    width: 15%;
-    height: 100%;
+    width: 12%; /* Changed */
+    height: 100%; /* Changed */
     margin: 10px;
     box-sizing: border-box;
     border-radius: 12px;
-    /* border: 3px solid white; */
     cursor: pointer;
-    flex-wrap: wrap;
+    background-color: var(--color-panel-primary); /* Added */
 }
 
-
 .logo-container {
-    width: 30%;
+    width: 30%; /* Changed */
     height: 100%;
-    background-color: white;
+    background-color: var(--color-text-primary); /* Changed */
     border-radius: 10px 0 0 10px;
-
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 5px; /* Added */
+    box-sizing: border-box; /* Added */
 }
 
 .name-container {
-    width: 70%;
+    width: 70%; /* Changed */
     height: 100%;
-    background-color:rgb(238, 234, 234);
-    color: rgb(175, 25, 25);
+    background-color: var(--color-panel-primary); /* Changed */
+    color: var(--color-text-primary); /* Changed */
     border-radius: 0 10px 10px 0;
-    
     display: flex;
     justify-content: center;
     align-items: center;
-
-    font-size: 0.75rem;
+    font-size: 0.9rem; /* Changed */
     font-weight: bold;
     text-transform: uppercase;
     text-overflow:ellipsis;
     overflow: hidden;
-
-    padding: 10px;
+    padding: 0 15px; /* Changed */
     box-sizing: border-box;
 }
-
 
 .logo-img {
     max-height: 90%;
     max-width: 90%;
     aspect-ratio: 1/ 1;
-    object-fit: cover;
+    object-fit: contain; /* Changed */
     border-radius: 50%;
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease; */
-    background-color: white;
 }
 
-/* ---------------------------------------------------------------------------------------------------------- */
-
-/* Data Section---------------------------------------------------------------------------------------------- */
+/* ======== DATA SECTION ======== */
 #data-container {
     grid-column: 1 / -1;
     grid-row: 2;
@@ -141,278 +136,165 @@ body {
     flex-wrap: wrap;
 }
 
-.info-box {
-    width: 30%;
+.info-box, .print-box {
+    width: 25%; /* Changed */
     height: 100%;
-    min-width: 30%;
     box-sizing: border-box;
-
     display: flex;
     flex-direction: row;
     text-overflow:ellipsis;
     overflow: hidden;
-
-    /* flex: 1 1 300px; Grow, shrink, minimum width */
-    min-width: 200px; /* Prevent overflow on small screens */
 }
 
-.info-title {
-    width: 65%;
+.info-title, .print-icon {
+    width: 65%; /* Changed */
     height: 100%;
     max-height: 47px;
-    background-color: #bbb9c5;
+    background-color: var(--color-panel-secondary); /* Changed */
+    color: var(--color-text-primary); /* Added */
     box-sizing: border-box;
-
     border-radius: 10px 0 0 10px;
-    padding: 12px;
-
+    padding: 12px 20px; /* Changed */
     display: flex;
     justify-content: center;
     align-items: center;
-
     font-size: 1.2rem;
     font-weight: bold;
     text-transform: uppercase;
-
 }
 
-.info-data {
-    width: 35%;
+.info-data, .print-text {
+    width: 35%; /* Changed */
     height: 100%;
     max-height: 47px;
-    background-color: white;
-    color: rgb(56, 54, 186);
+    background-color: var(--color-panel-primary); /* Changed */
+    color: var(--color-accent-mint); /* Changed */
     box-sizing: border-box;
-
     border-radius: 0 10px 10px 0;
-    padding: 12px;
-
+    padding: 12px 20px; /* Changed */
     display: flex;
     justify-content: center;
     align-items: center;
-
     font-size: 1.2rem;
     font-weight: bold;
     text-transform: uppercase;
-    
 }
 
-/* -------------------------------------------------------------------------------------------------------------------- */
+.print-box {
+    width: 10%;
+}
 
+.print-icon {
+    width: 30%;
+    background-color: var(--color-panel-primary); /* Changed */
+    color: var(--color-accent-mint); /* Changed */
+}
 
-/* Player Cards ------------------------------------------------------------------------------------------------------- */
+.print-text {
+    width: 70%;
+    background-color: var(--color-panel-secondary); /* Changed */
+}
 
+/* ======== PLAYER CARDS SECTION ======== */
 .player-container {
     grid-column: 1/ -1;
-    grid-row: 3/ span 3;
+    grid-row: 3 / -1; /* Changed to fill remaining space */
     background: none;
-    /* display: flex;
-    gap: 10px; */
+    overflow-y: auto; /* Added for scrolling */
+    padding-bottom: 20px; /* Added */
 }
 
 .player-card-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
+    display: grid; /* Changed to grid for better alignment */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive grid */
     gap: 15px;
 }
 
 .role-title {
     width: 100%;
     box-sizing: border-box;
-    padding: 5px 20px 5px 20px;
-    border-bottom: 3px solid #59CD90;
-    color: #59CD90;
+    padding: 5px 20px 5px 0; /* Changed */
+    border-bottom: 2px solid var(--color-accent-mint); /* Changed */
+    color: var(--color-accent-mint); /* Changed */
     font-size: 1.2rem;
     font-weight: bold;
     text-transform: uppercase;
-    margin: 10px 0 10px 0;
+    margin: 20px 0 15px 0; /* Changed */
 }
 
 .player-card {
-    width: 19%;
-    aspect-ratio: 3 / 1;
-
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-
+    width: 100%; /* Changed */
+    aspect-ratio: 16 / 7; /* Changed */
+    display: grid; /* Changed */
+    grid-template-columns: 1fr 2fr; /* One part image, two parts text */
     text-transform: uppercase;
     font-weight: bold;
-
-    border-radius: 12px;
-    /* border: 2px solid rgb(255, 255, 255); */
+    border-radius: 8px; /* Changed */
     box-sizing: border-box;
+    background-color: var(--color-panel-primary); /* Added */
+    overflow: hidden; /* Added */
+    border: 1px solid var(--color-panel-secondary); /* Added */
 }
 
 .image-box {
-    width: 33.33%;
+    width: 100%; /* Changed */
     height: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background-color:white;
-    border-radius: 10px 0 0 10px;
+    grid-column: 1 / 2;
+    grid-row: 1 / 5; /* Span all four text rows */
+    background-color: transparent; /* Changed */
 }
 
 .player-photo {
     width: 100%;
     height: 100%;
+    object-fit: cover; /* Added */
+    border-radius: 0; /* Changed */
+}
 
-    border-radius: 10px 0 0 10px;
+.player-name, .batting-style, .bowling-style, .final-price {
+    width: 100%; /* Changed */
+    height: 100%; /* Changed */
+    grid-column: 2 / 3;
+    display: flex;
+    align-items: center;
+    padding: 0 10px; /* Changed */
+    box-sizing: border-box;
+    background-color: transparent; /* Changed */
+    border-radius: 0;
 }
 
 .player-name {
-    width: 66.67%;
-    height: 40%;
-
-    background-color: white;
-    color: #F19A3E;
-
-    font-size: 0.9rem;
+    grid-row: 1 / 2;
+    color: var(--color-text-primary); /* Changed */
+    font-size: 1rem; /* Changed */
     font-weight: bold;
-    text-transform: uppercase;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border-radius: 0 10px 0 0;
-    padding: 5px 5px 5px 5px;
-
-    box-sizing: border-box;
 }
 
 .batting-style, .bowling-style {
-    width: 66.67%;
-    height: 15%;
-
-    background-color: #dcdae3;
-
-    font-size: 0.5rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-
-    padding: 5px 0 5px 10px;
-
-    box-sizing: border-box;
+    color: var(--color-text-secondary); /* Added */
+    grid-row: auto; /* Added */
+    font-size: 0.65rem; /* Changed */
+    font-weight: normal; /* Changed */
+    border-top: 1px solid var(--color-panel-secondary); /* Added */
 }
 
 .final-price {
-    width: 66.67%;
-    height: 30%;
-
-    background-color: rgb(58, 87, 173);
-    color: white;
-
-    font-size: 0.8rem;
+    grid-row: 4 / 5;
+    background-color: var(--color-panel-secondary); /* Changed */
+    color: var(--color-accent-mint); /* Changed */
+    font-size: 1rem; /* Changed */
     font-weight: bold;
-    text-transform: uppercase;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    border-radius: 0 0 10px 0;
-    padding: 2px 0 2px 2px;
-
-    box-sizing: border-box;
-}
-
-#logo-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 11vh;
-}
-.tournament-logo {
-    max-height: 100%;             /* Limit logo height */
-    max-width: 100%;               /* Limit logo width */
-    width: auto;
-    height: auto;
-    aspect-ratio: 1 / 1;
-    object-fit: contain;
-    background-color: wheat;
-    border-radius: 10px;
-    align-self: center;
-    justify-self: center;
-    /* Remove justify-content and align-items here, not needed for img */
-}
-
-.team-container {
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 15%;
-    height: 100%;
-    margin: 10px;
-    box-sizing: border-box;
-    border-radius: 12px;
-    /* border: 3px solid white; */
-    cursor: pointer;
-    flex-wrap: wrap;
-}
-
-
-.logo-container {
-    width: 30%;
-    height: 100%;
-    background-color: white;
-    border-radius: 10px 0 0 10px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.name-container {
-    width: 70%;
-    height: 100%;
-    background-color:rgb(238, 234, 234);
-    color: rgb(175, 25, 25);
-    border-radius: 0 10px 10px 0;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 0.75rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-overflow:ellipsis;
-    overflow: hidden;
-
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-
-.logo-img {
-    max-height: 90%;
-    max-width: 90%;
-    aspect-ratio: 1/ 1;
-    object-fit: cover;
-    border-radius: 50%;
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease; */
-    background-color: white;
+    justify-content: center; /* Changed */
 }
 
 .no-players {
     display: flex;
     justify-content: center;
     align-items: center;
-
     margin: 30px;
-
-    font-size: 1.5rem;
-    color: white;
+    font-size: 1.2rem; /* Changed */
+    color: var(--color-text-secondary); /* Changed */
     font-weight: bold;
     text-transform: uppercase;
+    font-style: italic; /* Added */
 }
