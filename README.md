@@ -2,7 +2,8 @@
 
 A fully-featured, serverless cricket auction application built with vanilla HTML, CSS, and JavaScript. This app provides a complete auction experience with data persistence, a full undo/redo system, and detailed reporting.
 
-*[Insert a screenshot of the main auction page in action here. It should show a player being bid on, with teams on the right.]*
+<img width="1919" height="1079" alt="Screenshot 2025-07-20 054938" src="https://github.com/user-attachments/assets/29c703d6-fef0-41c7-bd6f-30b8c0b9038d" />
+
 
 -----
 
@@ -65,7 +66,8 @@ The auctioneer can control the flow using the buttons at the bottom or the corre
   - **View Squads:** Hold the **Ctrl** key (or **Shift** key) and click on any team card on the auction page. This will open a new tab showing that team's detailed roster.
   - **Print Team Sheet:** From the detailed squad page, click the "Print Team Sheet" button to generate a print-ready document.
 
-*[Insert a screenshot of the detailed squad page here. It should show the player cards grouped by role.]*
+<img width="1918" height="1079" alt="Screenshot 2025-07-20 054754" src="https://github.com/user-attachments/assets/cce3e4fb-8044-4bf1-a4c8-3f4034a29121" />
+
 
 ### Undo/Redo
 
