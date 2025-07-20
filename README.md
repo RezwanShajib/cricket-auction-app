@@ -98,7 +98,7 @@ The auctioneer can control the flow using the buttons at the bottom or the corre
 │   ├── script.js               # Logic for the squad list page
 │   ├── styles.css              # Styles for the squad list page
 |   ├── teamsheet
-│       ├── teamsheet.html      # Printable team sheet template
+│       ├── index.html          # Printable team sheet template
 │       ├── teamsheet.js        # Logic for the team sheet
 │       └── teamsheet.css       # Print styles for the team sheet
 │
