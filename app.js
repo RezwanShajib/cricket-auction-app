@@ -351,9 +351,9 @@ function renderUI() {
 }
 
 function resetAll() {
-    const securityKey = prompt("Enter the security key to reset:");
+    const securityKey = prompt("Enter the security key to reset: (rezwan19)");
 
-    if(securityKey === "shajib19"){
+    if(securityKey === "rezwan19"){
         //remove all saved data from localStorage
         localStorage.removeItem('auctionData');
 
