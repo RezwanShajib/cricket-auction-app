@@ -194,11 +194,11 @@ function runSquadsPage() {
     printButton.style.cursor = "pointer";
     printButton.addEventListener('click', () => {
         if(selectedTeam) {
-            window.open(`/squads/teamsheet/?team=${selectedTeam}`, '_blank');
+            window.open(`squads/teamsheet/?team=${selectedTeam}`, '_blank');
         } else {
             // Handle case where first team is shown by default
             const firstTeamId = state.teams[0].team_id;
-            window.open(`/squads/teamsheet/?team=${firstTeamId}`, '_blank');
+            window.open(`squads/teamsheet/?team=${firstTeamId}`, '_blank');
         }
     });
 
