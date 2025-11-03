@@ -512,3 +512,92 @@ body {
 }
 .sold-seal { background-color: rgba(34, 197, 94, 0.85); }
 .unsold-seal { background-color: rgba(239, 68, 68, 0.85); }
+
+
+
+/* --- Budget Editor Modal Styles --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: var(--color-background-main);
+    color: var(--color-text-primary);
+    padding: 20px 30px;
+    border-radius: 12px;
+    width: 600px;
+    max-width: 90%;
+    border: 1px solid var(--color-panel-secondary);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.modal-close {
+    float: right;
+    font-size: 2.5rem;
+    cursor: pointer;
+    line-height: 1;
+    color: var(--color-text-secondary);
+}
+.modal-close:hover {
+    color: var(--color-accent-mint);
+}
+
+#budget-editor-list {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.budget-row {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1fr;
+    gap: 10px;
+    align-items: center;
+}
+
+.budget-row label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--color-text-primary);
+}
+
+.budget-row input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid var(--color-panel-secondary);
+    background: var(--color-panel-primary);
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    box-sizing: border-box; /* Fixes width issue */
+}
+
+.budget-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.budget-row button {
+    padding: 8px 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: var(--color-panel-secondary);
+    color: var(--color-text-primary);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.budget-row button:hover {
+    background-color: var(--color-accent-mint);
+    color: #1E293B;
+}

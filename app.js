@@ -34,6 +34,11 @@ const getTeamsData = async () => {
     return await response.json();
 };
 
+//Buttons for Editing Budgets
+let budgetModal = document.getElementById("budget-modal");
+let modalCloseBtn = document.getElementById("modal-close-btn");
+let budgetEditorList = document.getElementById("budget-editor-list");
+
 //DOM Manipulation
 let playerName = document.getElementById("player-name");
 let playerPhoto = document.getElementById("player-image")
@@ -263,7 +268,7 @@ function soldPlayer() {
 
 function nextPlayer() {
     state.auctionCount++;         //Increase the auction count
-    saveHistory();
+    // saveHistory();
 
     //Show next players' data in the UI
     renderUI();
@@ -398,6 +403,13 @@ function resetAll() {
     //initApp function is already designed to start a fresh auction if it can't find any saved data
 }
 
+
+//Functions for UNDO-REDO buttons visibility
+function updateUndoRedoButtons() {
+    undoButton.disabled = history.undoStack.length === 0;
+    redoButton.disabled = history.redoStack.length === 0;
+}
+
 //UNDO-REDO Functionality
 function saveHistory() {
     //Clear the redostack
@@ -410,6 +422,8 @@ function saveHistory() {
     if(history.undoStack.length > 20) {
         history.undoStack.shift();
     }
+
+    updateUndoRedoButtons();
 }
 
 function undoChange() {
@@ -444,6 +458,8 @@ function undoChange() {
         soldSeal.style.display = "none";
         unsoldSeal.style.display = "none";
     }
+    updateUndoRedoButtons();
+
 }
 
 function redoChange() {
@@ -478,6 +494,8 @@ function redoChange() {
         soldSeal.style.display = "none";
         unsoldSeal.style.display = "none";
     }
+    updateUndoRedoButtons();
+
 }
 
 function endAuction() {
@@ -500,6 +518,74 @@ function endAuction() {
     // Save the final state
     saveData();
 }
+
+
+//====== BUDGETING =============================================
+/**
+ * Opens the budget editor modal and populates it with team data.
+ */
+function openBudgetModal() {
+    budgetEditorList.innerHTML = ''; // Clear old list
+    
+    state.teams.forEach(team => {
+        const row = document.createElement('div');
+        row.className = 'budget-row';
+        
+        row.innerHTML = `
+            <label for="budget-input-${team.team_id}">${team.team_name}</label>
+            <input type="number" id="budget-input-${team.team_id}" value="${team.team_budget}" step="50000">
+            <div class="budget-controls">
+                <button data-team="${team.team_id}" data-action="subtract">-</button>
+                <button data-team="${team.team_id}" data-action="add">+</button>
+            </div>
+        `;
+        budgetEditorList.appendChild(row);
+    });
+    
+    budgetModal.style.display = 'flex';
+}
+
+function closeBudgetModal() {
+    budgetModal.style.display = 'none';
+}
+
+/**
+ * Adjusts a team's total budget and recalculates their remaining budget.
+ * Used for the +/- buttons.
+ */
+function adjustTeamBudget(teamId, amount) {
+    saveHistory();
+    const team = state.teams.find(t => t.team_id === teamId);
+    if (!team) return;
+    
+    team.team_budget += amount;
+    team.remaining_budget += amount;
+
+    // Update the input field in the modal to show the new value
+    const inputField = document.getElementById(`budget-input-${teamId}`);
+    if (inputField) inputField.value = team.team_budget;
+    
+    renderUI();
+    saveData();
+}
+
+/**
+ * Sets a team's total budget to a new value from the input field.
+ */
+function setTeamBudget(teamId, newTotalBudget) {
+    saveHistory();
+    const team = state.teams.find(t => t.team_id === teamId);
+    if (!team || isNaN(newTotalBudget)) return;
+
+    // Calculate the *difference* and apply it to the remaining budget
+    const budgetChange = newTotalBudget - team.team_budget;
+    team.team_budget = newTotalBudget;
+    team.remaining_budget += budgetChange;
+    
+    renderUI();
+    saveData();
+}
+
 
 // Main App Logic
 const initApp = async () => {
@@ -543,6 +629,38 @@ const initApp = async () => {
 
     // This block runs for BOTH new and loaded states, ensuring UI is always in sync.
     renderUI();
+    updateUndoRedoButtons(); 
+
+    // --- ADD LISTENERS FOR THE MODAL ---
+    modalCloseBtn.addEventListener('click', closeBudgetModal);
+
+    // Use event delegation for the dynamic buttons
+    budgetEditorList.addEventListener('click', (event) => {
+        const target = event.target;
+        if (target.tagName !== 'BUTTON') return;
+        
+        const action = target.dataset.action;
+        const teamId = parseInt(target.dataset.team);
+        let amount = 0;
+        
+        if (action === 'add') amount = 50000;
+        if (action === 'subtract') amount = -50000;
+        
+        if (amount !== 0) {
+            adjustTeamBudget(teamId, amount);
+        }
+    });
+
+    // Use event delegation for the dynamic input fields
+    budgetEditorList.addEventListener('change', (event) => {
+        const target = event.target;
+        if (target.tagName !== 'INPUT' || target.type !== 'number') return;
+        
+        const teamId = parseInt(target.id.split('-')[2]);
+        const newValue = parseInt(target.value);
+        
+        setTeamBudget(teamId, newValue);
+    });
 
 
 
@@ -588,6 +706,16 @@ const initApp = async () => {
                     redoChange()
                 } else if (event.ctrlKey) {
                     undoChange();
+                }
+                break;
+            case "m":
+                if (event.ctrlKey) {
+                    event.preventDefault(); // Stop browser's default action
+                    if (budgetModal.style.display === 'none') {
+                        openBudgetModal();
+                    } else {
+                        closeBudgetModal();
+                    }
                 }
                 break;
         }
