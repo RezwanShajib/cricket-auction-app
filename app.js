@@ -1,5 +1,3 @@
-let handlers = []; // save references here [it will use to remove event listener of the teams]
-
 //History stack
 let history = {
         undoStack: [],
@@ -63,25 +61,6 @@ let nextButton   = document.getElementById("next-button");
 //Seal DOM
 unsoldSeal = document.getElementById("unsold-seal");
 soldSeal = document.getElementById("sold-seal");
-
-//Teams' Button DOM
-let team_1 = document.getElementById("team-1");
-let team_2 = document.getElementById("team-2");
-let team_3 = document.getElementById("team-3");
-let team_4 = document.getElementById("team-4");
-let team_5 = document.getElementById("team-5");
-let team_6 = document.getElementById("team-6");
-let team_7 = document.getElementById("team-7");
-let team_8 = document.getElementById("team-8");
-
-//Teams' Data DOM
-const teamData = [1, 2, 3, 4, 5, 6, 7, 8].map(i => ({
-    logo:   document.getElementById(`logo-${i}`),
-    name:   document.getElementById(`team-name-${i}`),
-    budget_remaining: document.getElementById(`money-remaining-${i}`),
-    player_bought: document.getElementById(`taken-player-${i}`)
-}));
-//teamData[0].logo -> logo elements of team 1
 
 
 //Showing Price as M and K format. It looks better.
@@ -154,15 +133,6 @@ function showPlayerDetails(i) {
             nextButton.style.display = "none";
         }
     }
-}
-
-function showTeamData(team_id) {
-    let i = team_id - 11; // Team ID starts from 11 (10+1) and teamData contain first team object at index 0 (1-1)
-
-    teamData[i].logo.src = `assets/teams-logo/team_${team_id}.png`;
-    teamData[i].name.innerText = state.teams[i].team_name;
-    teamData[i].budget_remaining.innerText = showAmount(state.teams[i].remaining_budget);
-    teamData[i].player_bought.innerText = state.teams[i].player_bought;
 }
 
 function bidPlayer(team_id) {
@@ -278,7 +248,7 @@ function soldPlayer() {
     console.log(`${player.name} is sold to ${state.teams[teamIndex].team_name}`);
 
     //Update the UI with updated team data
-    showTeamData(lastBid.team);
+    renderTeams();
 
     //Show the SOLD seal
     soldSeal.style.display = "block";
@@ -327,6 +297,73 @@ function skipPlayer() {
     saveData();
 }
 
+function renderTeams() {
+    // === DYNAMIC TEAM RENDERING ===
+    const container = document.getElementById('teams-data-section');
+    container.innerHTML = ''; // Clear all existing team cards
+
+    // Loop through the teams in the state
+    state.teams.forEach(team => {
+        const teamId = team.team_id;
+        
+        const teamElement = document.createElement('div');
+        teamElement.className = 'team-container';
+        teamElement.id = `team-${teamId}`; // Use the actual team_id
+        
+        // Dynamically create the HTML, filling in all data at once
+        teamElement.innerHTML = `
+            <div class="team-name-container">
+                <div class="logo-container">
+                    <img src="assets/teams-logo/team_${teamId}.png" class="logo-img" id="logo-${teamId}">
+                </div>
+                <div class="name-container" id="name-container-${teamId}" style="background-color: ${team.color || '#2c3e50'}; color: white;">
+                    <span id="team-name-${teamId}">${team.team_name}</span>
+                </div>
+            </div>
+            <div class="team-data-container">
+                <div class="taken-player-icon">
+                    <img src="assets/taken-player-icon.png" class="player-icon">
+                </div>
+                <div class="taken-player"><span id="taken-player-${teamId}">${team.player_bought}</span></div>
+                <div class="money-icon"><span>$</span></div>
+                <div class="money-remaining"><span id="money-remaining-${teamId}">${showAmount(team.remaining_budget)}</span></div>
+            </div>
+        `;
+        
+        // Add the click event listener directly to the new element
+        teamElement.addEventListener("click", makeBidHandler(teamId));
+        
+        container.appendChild(teamElement);
+    });
+}
+
+
+
+
+//Add event lister to every teams button
+//We save the references because when we need to remove the event listener then we can
+function makeBidHandler(teamId) {
+    return function (event) { // Add 'event' as an argument
+        if (event.ctrlKey) {
+            // If shift key is pressed, open the squad page
+            window.open(`squads/?team=${teamId}`, '_blank');
+        } else {
+            // Otherwise, place a bid
+            bidPlayer(teamId);
+        }
+    }
+}
+
+
+    
+// for (let i = 0; i < state.teams.length; i++) {
+//     const teamElement = document.getElementById(`team-${i + 1}`);
+//     const handler = makeBidHandler(i + 11); // create the handler for this team
+//     handlers.push(handler);                 // save the reference
+//     teamElement.addEventListener("click", handler);
+    
+// }
+
 function renderUI() {
     if (state.auctionCount >= state.players.length) {
         alert("The auction is finished!");
@@ -335,9 +372,7 @@ function renderUI() {
         
         showPlayerDetails(0);
 
-        for (let i = 0; i < state.teams.length; i++) {
-        showTeamData(state.teams[i].team_id);
-        }
+        renderTeams();
 
         endAuction();
 
@@ -345,9 +380,7 @@ function renderUI() {
     }
     
     showPlayerDetails(state.auctionCount);
-    for (let i = 0; i < state.teams.length; i++) {
-        showTeamData(state.teams[i].team_id);
-    }
+    renderTeams();
 }
 
 function resetAll() {
@@ -458,13 +491,11 @@ function endAuction() {
     undoButton.disabled = true;
     redoButton.disabled = true;
     
-    // Disable bidding by removing all team click listeners
-    for (let i = 0; i < state.teams.length; i++) {
-        const teamElement = document.getElementById(`team-${i + 1}`);
-        if (handlers[i]) {
-            teamElement.removeEventListener("click", handlers[i]);
-        }
-    }
+    // Disable bidding by finding all dynamic team containers
+    document.querySelectorAll('.team-container').forEach(el => {
+        el.style.pointerEvents = 'none'; // Disables clicks
+        el.style.opacity = '0.7'; // Greys them out
+    });
 
     // Save the final state
     saveData();
@@ -512,30 +543,6 @@ const initApp = async () => {
 
     // This block runs for BOTH new and loaded states, ensuring UI is always in sync.
     renderUI();
-
-
-    //Add event lister to every teams button
-    //We save the references because when we need to remove the event listener then we can
-   function makeBidHandler(teamId) {
-    return function (event) { // Add 'event' as an argument
-        if (event.ctrlKey) {
-            // If shift key is pressed, open the squad page
-            window.open(`squads/?team=${teamId}`, '_blank');
-        } else {
-            // Otherwise, place a bid
-            bidPlayer(teamId);
-        }
-    }
-}
-
-    
-    for (let i = 0; i < state.teams.length; i++) {
-        const teamElement = document.getElementById(`team-${i + 1}`);
-        const handler = makeBidHandler(i + 11); // create the handler for this team
-        handlers.push(handler);                 // save the reference
-        teamElement.addEventListener("click", handler);
-        
-    }
 
 
 
