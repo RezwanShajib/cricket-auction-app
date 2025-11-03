@@ -127,6 +127,9 @@ function showPlayerDetails(i) {
         soldButton.style.display = "none";
         unsoldButton.style.display = "none";
         nextButton.style.display = "block";
+        soldSeal.classList.add("show");
+        unsoldSeal.classList.add("show");
+
     } else {
         if(state.players[state.auctionCount].bids.length == 0){
             soldButton.style.display = "none";
@@ -168,6 +171,13 @@ function bidPlayer(team_id) {
             return; // Don't update UI if bid not accepted
         }
     }
+
+    // Example: animate bid update
+    const bidElement = document.getElementById("current-bid");
+    bidElement.textContent = "350K";
+    bidElement.classList.add("updated");
+    setTimeout(() => bidElement.classList.remove("updated"), 400);
+
 
     //Save history
     saveHistory();
@@ -273,7 +283,10 @@ function nextPlayer() {
     //Show next players' data in the UI
     renderUI();
 
-    console.log(`${state.players[state.auctionCount].name}'s data loaded`);
+    // Only log the name if the auction is NOT over.
+    if (state.auctionCount < state.players.length) {
+        console.log(`${state.players[state.auctionCount].name}'s data loaded`);
+    }
 
     //Hide All Seals
     unsoldSeal.style.display = "none"; //Hide the unsold seal

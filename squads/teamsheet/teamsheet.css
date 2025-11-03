@@ -82,7 +82,7 @@ tbody tr:nth-child(even) {
     display: flex;
     justify-content: space-between;
     margin-top: 80px; /* Pushes the footer towards the bottom */
-    padding-top: 20px;
+    padding-top:60px;
     border-top: 1px solid #ccc;
 }
 .signature-box {

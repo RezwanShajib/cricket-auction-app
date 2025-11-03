@@ -1,0 +1,308 @@
+/* =========================================================
+   ANIMATIONS.CSS — Adds professional transitions & motion
+   ========================================================= */
+
+/* === GLOBAL TRANSITIONS === */
+* {
+  transition: all 0.25s ease-in-out;
+}
+
+/* === PAGE FADE-IN === */
+body {
+  animation: pageFadeIn 0.6s ease-out;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* === PLAYER SECTION === */
+#player-image {
+  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+}
+
+#player-image:hover {
+  transform: scale(1.05);
+}
+
+.player-info, #player-name, #player-role, #player-category {
+  animation: fadeSlideIn 0.5s ease-out;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* === CURRENT BID INFO === */
+#current-bid, #current-bid-team {
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.current-bid-team {
+  animation: pulseHighlight 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulseHighlight {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.03); }
+}
+
+/* === BUTTONS === */
+button, .auction-controls button {
+  transition: background-color 0.3s ease, transform 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+/* === SEALS (SOLD/UNSOLD) === */
+#sold-seal,
+#unsold-seal {
+  opacity: 0;
+  transform: scale(0.8) rotate(-10deg);
+  transition: all 0.4s ease-out;
+  transform-origin: center;
+}
+
+/* Visible state */
+#sold-seal.show,
+#unsold-seal.show {
+  opacity: 1;
+  transform: scale(1) rotate(-15deg);
+}
+
+/* Keyframe animation for a stamp-like pop */
+@keyframes stampAppear {
+  0% {
+    transform: scale(2) rotate(10deg);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(0.9) rotate(-18deg);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(1.05) rotate(-12deg);
+  }
+  100% {
+    transform: scale(1) rotate(-15deg);
+    opacity: 1;
+  }
+}
+
+/* Apply distinct stamp feel for sold and unsold */
+#sold-seal.show {
+  animation: stampAppear 0.5s cubic-bezier(0.25, 1.5, 0.5, 1);
+  color: #00ff73;
+}
+
+#unsold-seal.show {
+  animation: stampAppear 0.5s cubic-bezier(0.25, 1.5, 0.5, 1);
+  color: #ff4d4d;
+}
+
+#sold-seal.show,
+#unsold-seal.show {
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  filter: drop-shadow(0 0 6px rgba(0,0,0,0.2));
+}
+
+
+/* === TEAMS PANEL === */
+.team-container {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-container:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 0 12px rgba(255,255,255,0.1);
+}
+
+#teams-data-section {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === MODAL ANIMATIONS === */
+#budget-modal {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: scale(0.95);
+}
+
+#budget-modal[style*="display: flex"] {
+  opacity: 1;
+  pointer-events: all;
+  transform: scale(1);
+  animation: modalSlideUp 0.3s ease-out;
+}
+
+@keyframes modalSlideUp {
+  from { transform: translateY(30px) scale(0.95); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* === TOURNAMENT HEADER === */
+.tournament-logo {
+  animation: logoAppear 0.6s ease-in-out;
+}
+
+@keyframes logoAppear {
+  from { transform: scale(0.6) rotate(-10deg); opacity: 0; }
+  to { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.headline {
+  animation: fadeSlideIn 0.8s ease-out;
+}
+
+/* === SCROLL SMOOTHNESS === */
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* =====================================
+   TEXT ANIMATIONS
+   ===================================== */
+
+/* === Headline Slide-In === */
+.headline {
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: headlineFadeIn 1s ease-out forwards;
+}
+
+@keyframes headlineFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* === Player Data Fade-Up === */
+.player-data-info {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: playerDataIn 0.6s ease-out forwards;
+  animation-delay: 0.8s;
+}
+
+@keyframes playerDataIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Bid Value Pop === */
+#current-bid, #base-price {
+  display: inline-block;
+  transition: all 0.25s ease;
+}
+
+#current-bid.updated, #base-price.updated {
+  animation: bidPulse 0.4s ease-out;
+  color: #00ffcc; /* Slight highlight glow */
+}
+
+@keyframes bidPulse {
+  0% { transform: scale(1); color: inherit; }
+  30% { transform: scale(1.15); color: #00ffcc; }
+  100% { transform: scale(1); color: inherit; }
+}
+
+/* === Team Name Entrance === */
+#current-bid-team {
+  opacity: 0;
+  transform: translateX(-15px);
+  animation: teamSlideIn 0.7s ease-out forwards;
+  animation-delay: 0.6s;
+}
+
+@keyframes teamSlideIn {
+  from { opacity: 0; transform: translateX(-15px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* === Button Hover (Text Pop) === */
+.command-button {
+  transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.command-button:hover {
+  transform: scale(1.08);
+  letter-spacing: 0.5px;
+}
+
+/* === Modal Title Fade === */
+.modal-content h2 {
+  opacity: 0;
+  animation: modalTitleFade 0.6s ease-out forwards;
+}
+
+@keyframes modalTitleFade {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === Player Name Reveal (safe version) === */
+.player-name {
+  display: inline-block;
+  opacity: 1; /* Ensure visible even if animation fails */
+  transform: translateY(0);
+  animation: playerNameIn 0.8s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes playerNameIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* === Player Role & Data Fade-Up (safe version) === */
+.player-data-info {
+  opacity: 1; /* Keep visible by default */
+  transform: translateY(0);
+  animation: playerDataIn 0.6s ease-out forwards;
+  animation-delay: 0.4s;
+}
+
+@keyframes playerDataIn {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
