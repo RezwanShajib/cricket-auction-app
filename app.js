@@ -39,6 +39,14 @@ let budgetModal = document.getElementById("budget-modal");
 let modalCloseBtn = document.getElementById("modal-close-btn");
 let budgetEditorList = document.getElementById("budget-editor-list");
 
+//DOM for Direct Bidding
+let directBidModal = document.getElementById("direct-bid-modal");
+let directBidCloseBtn = document.getElementById("direct-bid-close-btn");
+let teamSelectDropdown = document.getElementById("team-select-dropdown");
+let directBidAmountInput = document.getElementById("direct-bid-amount");
+let submitBidBtn = document.getElementById("submit-bid-btn");
+let directBidForm = document.getElementById("direct-bid-form");
+
 //DOM Manipulation
 let playerName = document.getElementById("player-name");
 let playerPhoto = document.getElementById("player-image")
@@ -600,6 +608,87 @@ function setTeamBudget(teamId, newTotalBudget) {
 }
 
 
+/**
+ * Opens the Direct Bid modal.
+ * It populates the team dropdown and suggests a new bid amount.
+ */
+function openDirectBidModal() {
+    const player = state.players[state.auctionCount];
+    
+    // Don't open if auction is over or player is already sold
+    if (player.status === "sold" || player.status === "unsold") return;
+
+    // Populate team dropdown
+    teamSelectDropdown.innerHTML = ''; // Clear old options
+    state.teams.forEach(team => {
+        const option = document.createElement('option');
+        option.value = team.team_id;
+        option.textContent = `${team.team_name} ($${showAmount(team.remaining_budget)})`;
+        teamSelectDropdown.appendChild(option);
+    });
+
+    // Set a suggested bid amount
+    let suggestedAmount = player.basePrice;
+    if (player.bids.length > 0) {
+        suggestedAmount = player.bids[player.bids.length - 1].amount + 5000;
+    }
+    directBidAmountInput.value = suggestedAmount;
+
+    directBidModal.style.display = 'flex';
+}
+
+function closeDirectBidModal() {
+    directBidModal.style.display = 'none';
+}
+
+/**
+ * Handles the logic for a custom "Direct Bid"
+ */
+function handleDirectBidSubmit(event) {
+    event.preventDefault(); // Stop the form from reloading the page
+    
+    // 1. Get values from the form
+    const teamId = parseInt(teamSelectDropdown.value);
+    const amount = parseInt(directBidAmountInput.value);
+    
+    const player = state.players[state.auctionCount];
+    const team = state.teams.find(t => t.team_id === teamId);
+
+    // 2. --- Validation ---
+    if (!team || isNaN(amount) || amount <= 0) {
+        alert("Invalid input. Please check the team and amount.");
+        return;
+    }
+    if (team.remaining_budget < amount) {
+        alert(`${team.team_name} does not have enough budget for this bid!`);
+        return;
+    }
+    if (player.bids.length === 0 && amount < player.basePrice) {
+        alert(`The bid must be at least the base price of $${showAmount(player.basePrice)}.`);
+        return;
+    }
+    if (player.bids.length > 0) {
+        const lastBid = player.bids[player.bids.length - 1];
+        if (amount <= lastBid.amount) {
+            alert(`The bid must be higher than the current bid of $${showAmount(lastBid.amount)}.`);
+            return;
+        }
+        if (lastBid.team === teamId) {
+            alert(`${team.team_name} cannot bid twice in a row.`);
+            return;
+        }
+    }
+
+    // 3. --- Process the Bid ---
+    saveHistory(); // Save for undo
+    state.players[state.auctionCount].bids.push({ team: teamId, amount: amount });
+    console.log(`DIRECT BID: ${player.name} bidded by ${team.team_name} for $${showAmount(amount)}`);
+    
+    renderUI(); // Update the main screen
+    saveData(); // Save to localStorage
+    closeDirectBidModal(); // Close the pop-up
+}
+
 // Main App Logic
 const initApp = async () => {
     // Load static tournament data first and update the UI immediately.
@@ -646,6 +735,10 @@ const initApp = async () => {
 
     // --- ADD LISTENERS FOR THE MODAL ---
     modalCloseBtn.addEventListener('click', closeBudgetModal);
+
+    //--- DIRECT BIDDING -------
+    directBidCloseBtn.addEventListener('click', closeDirectBidModal);
+    directBidForm.addEventListener('submit', handleDirectBidSubmit);
 
     // Use event delegation for the dynamic buttons
     budgetEditorList.addEventListener('click', (event) => {
@@ -696,6 +789,12 @@ const initApp = async () => {
     //Add keyboard command for sold unsold next
     // A single, efficient listener for all keyboard shortcuts
     window.addEventListener("keydown", function(event){
+        // Check if the user is currently typing in an input, select, or textarea
+        const targetTag = event.target.tagName;
+            if (targetTag === 'INPUT' || targetTag === 'TEXTAREA' || targetTag === 'SELECT') {
+                return; // If so, do nothing and just let them type.
+        }
+
         // Check for number keys 1-8 for bidding
         const keyNumber = parseInt(event.key);
         if (!isNaN(keyNumber) && keyNumber >= 1 && keyNumber <= 8) {
@@ -729,6 +828,12 @@ const initApp = async () => {
                     } else {
                         closeBudgetModal();
                     }
+                }
+                break;
+            case "b":
+                if (event.ctrlKey) {
+                    event.preventDefault(); // Stop browser's default action
+                    openDirectBidModal();
                 }
                 break;
         }
