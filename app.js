@@ -915,6 +915,12 @@ const initApp = async () => {
                     openDirectBidModal();
                 }
                 break;
+            case "p":
+                if (event.shiftKey) {
+                    event.preventDefault();
+                    window.open('squads/roster/', '_blank');
+                }
+                break;
         }
     });
 };

@@ -67,6 +67,9 @@ function showAmount(amount) {
 }
 
 function showPlayers(teamId) {
+    // This updates the URL in the browser bar (e.g., to "?team=11")
+    history.pushState({ teamId: teamId }, "", `?team=${teamId}`);
+
     let team = state.teams.find(t => t.team_id === teamId);
     //If team not found, select the first team by default
     if(!team){
@@ -144,7 +147,7 @@ function showPlayers(teamId) {
 function runSquadsPage() {
     // Get the team ID from the URL (e.g., ?team=11)
     const urlParams = new URLSearchParams(window.location.search);
-    selectedTeam = parseInt(urlParams.get('team')); // Get the ID and convert to a number
+    let selectedTeam = parseInt(urlParams.get('team')); // Get the ID and convert to a number
 
     
 
@@ -180,7 +183,9 @@ function runSquadsPage() {
         return;
     }
 
-    if(!selectedTeam){
+    // Fallback: If no team was selected in the URL (or it's invalid),
+    // default to the first team in the list.
+    if (!selectedTeam || isNaN(selectedTeam) || !state.teams.find(t => t.team_id === selectedTeam)) {
         selectedTeam = state.teams[0].team_id;
     }
 
@@ -190,28 +195,53 @@ function runSquadsPage() {
     //Show Team's players list
     showPlayers(selectedTeam);
 
-    //When the print Button is clicked
     printButton.style.cursor = "pointer";
     printButton.addEventListener('click', () => {
-        if(selectedTeam) {
-            window.open(`teamsheet/?team=${selectedTeam}`, '_blank');
+        // 1. Read the CURRENT URL from the browser bar
+        const currentParams = new URLSearchParams(window.location.search);
+        // 2. Get the 'team' ID from that URL
+        const currentTeamId = parseInt(currentParams.get('team'));
+        
+        if (currentTeamId) {
+            window.open(`teamsheet/?team=${currentTeamId}`, '_blank');
         } else {
-            // Handle case where first team is shown by default
-            const firstTeamId = state.teams[0].team_id;
-            window.open(`teamsheet/?team=${firstTeamId}`, '_blank');
+            // Fallback just in case
+            window.open(`teamsheet/?team=${state.teams[0].team_id}`, '_blank');
         }
     });
 
-    window.addEventListener("keydown", (event) => {
-        if(event.key == "p"){
-            if(selectedTeam) {
-            window.open(`teamsheet/?team=${selectedTeam}`, '_blank');
-        } else {
-            // Handle case where first team is shown by default
-            const firstTeamId = state.teams[0].team_id;
-            window.open(`teamsheet/?team=${firstTeamId}`, '_blank');
+    // --- COMBINED KEYBOARD LISTENER ---
+    window.addEventListener("keydown", function(event) {
+        // Stop shortcuts if user is in an input
+        const targetTag = event.target.tagName;
+        if (targetTag === 'INPUT' || targetTag === 'TEXTAREA' || targetTag === 'SELECT') {
+            return;
         }
-        }});
+
+        // --- P for Print ---
+        if(event.key.toLowerCase() === "p"){
+            // Trigger the button's click logic to get the current team ID
+            printButton.click();
+            return;
+        }
+
+        // --- Number keys for Team Selection ---
+        const keyNumber = parseInt(event.key);
+        if (!isNaN(keyNumber) && keyNumber >= 1 && keyNumber <= state.teams.length) {
+            const teamId = state.teams[keyNumber - 1].team_id;
+            if (teamId) {
+                showPlayers(teamId);
+            }
+        }
+    });
+
+    const logoBtn = document.getElementById('logo-section');
+    if (logoBtn) {
+        logoBtn.style.cursor = 'pointer';
+        logoBtn.addEventListener('click', () => {
+            window.open('roster/', '_blank'); // 'roster/' is relative to the squads/ folder
+        });
+    }
 }
 
 document.addEventListener("DOMContentLoaded", runSquadsPage);

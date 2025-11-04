@@ -1,0 +1,94 @@
+@page {
+    size: A4;
+    margin: 1.5cm;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+.page {
+    width: 100%;
+}
+.page-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #000;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.logo {
+    height: 50px;
+    margin-right: 15px;
+}
+h1 {
+    margin: 0;
+    font-size: 22pt;
+}
+h2 {
+    font-size: 16pt;
+    background-color: #f0f0f0;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10pt;
+    margin-bottom: 25px;
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+}
+thead tr {
+    background-color: #e9e9e9;
+    font-weight: bold;
+}
+
+/* --- Column Widths --- */
+.col-id-cat { width: 12%; }
+.col-photo { width: 100px; }
+.col-player { width: 30%; }
+.col-role { width: 28%; }
+.col-status { width: 20%; }
+
+/* --- Cell Content Styling --- */
+.player-photo img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.player-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+.player-subtext {
+    font-size: 0.9rem;
+    color: #555;
+    display: block;
+}
+.status-team {
+    font-weight: bold;
+}
+
+.headline {
+    font-size: 2rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
+
+/* Only apply this when printing */
+@media print {
+    body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
