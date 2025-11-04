@@ -87,7 +87,7 @@ function showPlayers(teamId) {
     }
 
     //Get all players for the selected team
-    const teamPlayers = team.players.map(playerId => state.players.find(p => p.id == playerId));
+    const teamPlayers = team.players.map(playerId => state.allPlayers.find(p => p.id == playerId));
     
     //Group players by role
     const batters = teamPlayers.filter(p => p && p.role == "Batter");

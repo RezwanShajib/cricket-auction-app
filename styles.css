@@ -661,3 +661,33 @@ body {
 .modal-submit-btn:hover {
     opacity: 0.9;
 }
+
+
+/* ============== FINISH POP UP ================== */
+
+/* A new style for modal buttons to sit side-by-side */
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+/* Style for the buttons in the new modal */
+.modal-submit-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/* Re-use your welcome button colors */
+.modal-submit-btn.resume { background-color: #3b82f6; color: white; }
+.modal-submit-btn.reset { background-color: #ef4444; color: white; }
+
+#round-summary-text {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+}

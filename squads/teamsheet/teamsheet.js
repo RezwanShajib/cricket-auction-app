@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const playerListBody = document.getElementById('player-list');
     playerListBody.innerHTML = ''; // Clear any placeholder content
     
-    const teamPlayers = team.players.map(pId => state.players.find(p => p.id === pId));
+    const teamPlayers = team.players.map(pId => state.allPlayers.find(p => p.id === pId));
 
     teamPlayers.forEach(player => {
         if (player) {

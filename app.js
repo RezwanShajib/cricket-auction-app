@@ -47,6 +47,12 @@ let directBidAmountInput = document.getElementById("direct-bid-amount");
 let submitBidBtn = document.getElementById("submit-bid-btn");
 let directBidForm = document.getElementById("direct-bid-form");
 
+//DOM for Finish Screen
+let roundEndModal = document.getElementById("round-end-modal");
+let restartUnsoldBtn = document.getElementById("restart-unsold-btn");
+let finishAuctionBtn = document.getElementById("finish-auction-btn");
+let roundSummaryText = document.getElementById("round-summary-text");
+
 //DOM Manipulation
 let playerName = document.getElementById("player-name");
 let playerPhoto = document.getElementById("player-image")
@@ -392,16 +398,13 @@ function makeBidHandler(teamId) {
 
 function renderUI() {
     if (state.auctionCount >= state.players.length) {
-        alert("The auction is finished!");
+        // alert("The auction is finished!");
+        // state.auctionCount = 0;
+        // showPlayerDetails(0);
+        // renderTeams();
+        // endAuction();
 
-        state.auctionCount = 0;
-        
-        showPlayerDetails(0);
-
-        renderTeams();
-
-        endAuction();
-
+        openRoundEndModal();
         return;
     }
     
@@ -520,6 +523,8 @@ function redoChange() {
 }
 
 function endAuction() {
+    closeRoundEndModal(); // Close the modal first
+    
     console.log("All players have been auctioned. The auction is now closed.");
     
     // Disable all action buttons
@@ -530,14 +535,15 @@ function endAuction() {
     undoButton.disabled = true;
     redoButton.disabled = true;
     
-    // Disable bidding by finding all dynamic team containers
+    // Disable bidding
     document.querySelectorAll('.team-container').forEach(el => {
-        el.style.pointerEvents = 'none'; // Disables clicks
-        el.style.opacity = '0.7'; // Greys them out
+        el.style.pointerEvents = 'none';
+        el.style.opacity = '0.7';
     });
 
-    // Save the final state
     saveData();
+    // We no longer call showFinishScreen here, 
+    // but you could if you want a final summary.
 }
 
 
@@ -689,6 +695,68 @@ function handleDirectBidSubmit(event) {
     closeDirectBidModal(); // Close the pop-up
 }
 
+/**
+ * Opens the new modal when a round ends.
+ */
+function openRoundEndModal() {
+    // Calculate how many players are left
+    const unsoldCount = state.players.filter(
+        p => p.status === 'unsold' || p.status === 'skipped'
+    ).length;
+
+    if (unsoldCount > 0) {
+        roundSummaryText.innerText = `Round 1 Complete. ${unsoldCount} players remain.`;
+        restartUnsoldBtn.style.display = "block";
+    } else {
+        roundSummaryText.innerText = "All players have been sold. The auction is complete.";
+        restartUnsoldBtn.style.display = "none";
+    }
+    
+    roundEndModal.style.display = 'flex';
+}
+
+function closeRoundEndModal() {
+    roundEndModal.style.display = 'none';
+}
+
+/**
+ * This is the function for your "Unsold Players" button.
+ */
+function restartAuctionForUnsold() {
+    // 1. Find all players who weren't sold
+    const newPlayerList = state.allPlayers.filter(
+        p => p.status === 'unsold' || p.status === 'skipped'
+    );
+
+    if (newPlayerList.length === 0) {
+        alert("There are no unsold or skipped players to re-auction.");
+        return;
+    }
+
+    // 2. Save the current state so this can be undone
+    saveHistory();
+
+    // 3. Reset the status of these players so they can be auctioned again
+    newPlayerList.forEach(player => {
+        player.status = "not-auctioned"; // Set back to default status
+        player.bids = []; // Clear old bids
+        player.finalPrice = null;
+        player.team = null;
+    });
+
+    // 4. Update the state
+    state.players = newPlayerList;
+    state.auctionCount = 0; // Reset the counter
+    state.soldPlayers = []; // Clear for the new round
+    state.unsoldPlayers = [];
+    state.skippedPlayers = [];
+
+    // 5. Close the modal and re-render the UI for the new round
+    closeRoundEndModal();
+    renderUI();
+    saveData(); // Save the new "Round 2" state
+}
+
 // Main App Logic
 const initApp = async () => {
     // Load static tournament data first and update the UI immediately.
@@ -703,10 +771,15 @@ const initApp = async () => {
     const savedDataJSON = localStorage.getItem('auctionData');
 
     if (savedDataJSON) {
-        // If saved data exists, parse it and load it into our state
+        // Logic for loading a SAVED game
         let savedData = JSON.parse(savedDataJSON);
         state = savedData.auctionState;
-        history =  savedData.historyData;
+        history = savedData.historyData;
+
+        // Add this 'if' block to support old save files
+        if (!state.allPlayers) {
+            state.allPlayers = state.players.slice();
+        }
 
         console.log("Loaded saved state from localStorage.");
 
@@ -722,11 +795,13 @@ const initApp = async () => {
         }
 
     } else {
-        // If no saved data, fetch the initial JSON files
+        // Logic for starting a NEW game
         console.log("No saved state found. Starting a new auction.");
-        // Call the functions and assign their returned value directly to the state
         state.players = await getPlayersData();
         state.teams = await getTeamsData();
+
+        // Add this line to create the master list
+        state.allPlayers = state.players.slice();
     }
 
     // This block runs for BOTH new and loaded states, ensuring UI is always in sync.
@@ -785,6 +860,10 @@ const initApp = async () => {
     resetButton.addEventListener("click", () => resetAll());
     undoButton.addEventListener("click", () => undoChange());
     redoButton.addEventListener("click", () => redoChange());
+
+    // --- LISTENERS FOR FINISH AUCTION ---
+    restartUnsoldBtn.addEventListener('click', restartAuctionForUnsold);
+    finishAuctionBtn.addEventListener('click', endAuction);
 
     //Add keyboard command for sold unsold next
     // A single, efficient listener for all keyboard shortcuts
