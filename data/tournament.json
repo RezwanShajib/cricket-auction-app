@@ -1,7 +1,11 @@
 {
-    "name" : "ABCD Super League",
+    "name" : "Campus Clash Cricket Tournamnet",
     "year" : 2025,
     "edition" : 1,
     "location" : "Lalmonirhat, BD",
-    "logo" : "../assets/tournament-logo.png"
+    "logo" : "../assets/tournament-logo.png",
+    "organizer" : {
+        "name" : "AAUB Sports Club",
+        "logo" : ""
+    }
 }

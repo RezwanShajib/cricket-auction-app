@@ -122,7 +122,6 @@ body {
     max-width: 90%;
     aspect-ratio: 1/ 1;
     object-fit: contain; /* Changed */
-    border-radius: 50%;
 }
 
 /* ======== DATA SECTION ======== */

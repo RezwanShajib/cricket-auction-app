@@ -36,7 +36,7 @@ function renderTeamsData() {
         newTeam.id = "team-" + teamID;
 
         newTeam.innerHTML = `
-            <div class="logo-container"><img src="../assets/teams-logo/team_${teamID}.png" class="logo-img" id="logo-${teamID}"></div>
+            <div class="logo-container"><img src="../${state.teams[i].logo}" class="logo-img" id="logo-${teamID}"></div>
             <div class="name-container" id="name-container-${teamID}"><span id="team-name-${teamID}">${state.teams[i].team_name}</span></div>
             `;
 
@@ -63,7 +63,7 @@ function showAmount(amount) {
         show_amount = "Error!";
     }
 
-    return show_amount;
+    return amount;
 }
 
 function showPlayers(teamId) {
@@ -93,10 +93,10 @@ function showPlayers(teamId) {
     const teamPlayers = team.players.map(playerId => state.allPlayers.find(p => p.id == playerId));
     
     //Group players by role
-    const batters = teamPlayers.filter(p => p && p.role == "Batter");
+    const batters = teamPlayers.filter(p => p && p.role == "Batsman");
     const bowlers = teamPlayers.filter(p => p && p.role == "Bowler");
-    const allrounders = teamPlayers.filter(p => p && p.role == "All-Rounder");
-    const wks = teamPlayers.filter(p => p && p.role == "Wicket-Keeper");
+    const allrounders = teamPlayers.filter(p => p && p.role == "All-rounder");
+    const wks = teamPlayers.filter(p => p && p.role == "Wicketkeeper-Batsman");
 
     //Update players count
     batterCount.innerText = batters.length;
@@ -121,7 +121,7 @@ function showPlayers(teamId) {
             <div class="player-name"><span>${player.name}</span></div>
             <div class="batting-style">🏏&nbsp;<span>${player.battingStyle}</span></div>
             <div class="bowling-style">⚾&nbsp;<span>${player.bowlingStyle || 'N/A'}</span></div>
-            <div class="final-price">$ &nbsp; <span>${showAmount(player.finalPrice)}</span></div>
+            <div class="final-price">🪙 &nbsp; <span>${showAmount(player.finalPrice)}</span></div>
         </div>`;
         
     batters.forEach(p => batterSection.innerHTML += createCardHTML(p));

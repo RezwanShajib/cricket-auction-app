@@ -94,17 +94,17 @@ soldSeal = document.getElementById("sold-seal");
 
 //Showing Price as M and K format. It looks better.
 function showAmount(amount) {
-    if(amount <= 1000){
-        show_amount = amount;
-    } else if(amount >= 1000000){
-        show_amount = (amount / 1000000).toFixed(2) + "M";
-    } else if(amount > 1000){
-        show_amount = Math.floor(amount / 1000) + "K";
-    } else if(amount <= 0) {
-        show_amount = "Error!";
-    }
+    // if(amount <= 1000){
+    //     show_amount = amount;
+    // } else if(amount >= 1000000){
+    //     show_amount = (amount / 1000000).toFixed(2) + "M";
+    // } else if(amount > 1000){
+    //     show_amount = Math.floor(amount / 1000) + "K";
+    // } else if(amount <= 0) {
+    //     show_amount = "Error!";
+    // }
 
-    return show_amount;
+    return amount;
 }
 
 /**
@@ -163,24 +163,24 @@ function showPlayerDetails(i) {
     playerPhoto.alt = state.players[i].name;
     playerBattingStyle.innerText = state.players[i].battingStyle;
     playerBowlingStyle.innerText = state.players[i].bowlingStyle;
-    playerClub.innerText = state.players[i].currentClub;
+    playerClub.innerText = `${state.players[i].department} - ${state.players[i].batch}`;
     playerCategory.innerText = state.players[i].category;
     playerId.innerText = state.players[i].id;
-    playerBasePrice.innerText = showAmount(state.players[i].basePrice);
+    playerBasePrice.innerText = `🪙 ${showAmount(state.players[i].basePrice)}`;
     
-    playerPhoto.onerror = function() {
-        this.src = 'assets/placeholder.png'; // Add a placeholder image
-    };
+    // playerPhoto.onerror = function() {
+    //     this.src = 'assets/placeholder.png'; // Add a placeholder image
+    // };
 
     if(state.players[i].bids.length === 0){
-        currentBidAmount.innerText = "00K";
+        currentBidAmount.innerText = "🪙 00";
         currentBidTeam.innerText = "NO BIDS";
         document.querySelector(".current-bid-team").style.backgroundColor = "#282829";
     } else {
         const lastBid = state.players[i].bids[state.players[i].bids.length - 1];
         const teamIndex = lastBid.team - 11;    //team_id starts from 11
 
-        currentBidAmount.innerText = showAmount(lastBid.amount);
+        currentBidAmount.innerText = `🪙 ${showAmount(lastBid.amount)}`;
         currentBidTeam.innerText = state.teams[teamIndex].team_name;
         document.querySelector(".current-bid-team").style.backgroundColor = state.teams[teamIndex].color;
     }
@@ -229,14 +229,14 @@ function showPlayerDetails(i) {
 
 //Bid Increament
 function bidIncrement(currentBid) {
-  if (currentBid >= 1000000) { // 1000k
-    return 25000; // Add 25k
-  } else if (currentBid >= 500000) { // 500k
-    return 20000; // Add 20k
-  } else if (currentBid >= 200000) { // 200k
-    return 10000; // Add 10k
+  if (currentBid >= 1000) { // 1000k
+    return 25; // Add 25k
+  } else if (currentBid >= 500) { // 500k
+    return 20; // Add 20k
+  } else if (currentBid >= 200) { // 200k
+    return 10; // Add 10k
   } else { // Less than 200k
-    return 5000; // Add 5k
+    return 5; // Add 5k
   }
 }
 
@@ -261,7 +261,7 @@ function bidPlayer(team_id) {
         let lastBid = player.bids[player.bids.length - 1];      //Last bid object of the player
 
         // Prevent same team from bidding twice in a row
-        if (lastBid.team != team_id && team.remaining_budget >= lastBid.amount + 5000) {        //Make sure bidder has more money remaining than the player's next bid amount
+        if (lastBid.team != team_id && team.remaining_budget >= lastBid.amount + bidIncrement(lastBid.amount)) {        //Make sure bidder has more money remaining than the player's next bid amount
             bidAmount = lastBid.amount + bidIncrement(lastBid.amount);
         } else {
             console.log(lastBid.team == team_id ? `${state.teams[teamIndex].team_name} tried to bid twice in a row. NOT ACCEPTED.` : `${state.teams[teamIndex].team_name} doesn't have enough money to bid for this player.`);
@@ -452,7 +452,7 @@ function renderTeams() {
         teamElement.innerHTML = `
             <div class="team-name-container">
                 <div class="logo-container">
-                    <img src="assets/teams-logo/team_${teamId}.png" class="logo-img" id="logo-${teamId}">
+                    <img src="${team.logo}" class="logo-img" id="logo-${teamId}">
                 </div>
                 <div class="name-container" id="name-container-${teamId}" style="background-color: ${team.color || '#2c3e50'}; color: white;">
                     <span id="team-name-${teamId}">${team.team_name}</span>
@@ -463,7 +463,7 @@ function renderTeams() {
                     <img src="assets/taken-player-icon.png" class="player-icon">
                 </div>
                 <div class="taken-player"><span id="taken-player-${teamId}">${team.player_bought}</span></div>
-                <div class="money-icon"><span>$</span></div>
+                <div class="money-icon"><span>🪙</span></div>
                 <div class="money-remaining"><span id="money-remaining-${teamId}">${showAmount(team.remaining_budget)}</span></div>
             </div>
         `;
@@ -1007,7 +1007,7 @@ function showFinishScreen() {
     const teamLogosContainer = document.getElementById('finish-team-logos');
     teamLogosContainer.innerHTML = ''; // Clear old logos
     state.teams.forEach(team => {
-        teamLogosContainer.innerHTML += `<img src="assets/teams-logo/team_${team.team_id}.png" alt="${team.team_name}">`;
+        teamLogosContainer.innerHTML += `<img src="${team.logo}" alt="${team.team_name}">`;
     });
 
     // Organizer (You can fill this in)

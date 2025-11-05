@@ -3,9 +3,9 @@
  * This must be defined in this file to be used here.
  */
 function showAmount(amount) {
-    if (!amount && amount !== 0) return 'N/A';
-    if (amount >= 1000000) return `${(amount / 1000000).toFixed(2)}M`;
-    if (amount >= 1000) return `${Math.floor(amount / 1000)}K`;
+    // if (!amount && amount !== 0) return 'N/A';
+    // if (amount >= 1000000) return `${(amount / 1000000).toFixed(2)}M`;
+    // if (amount >= 1000) return `${Math.floor(amount / 1000)}K`;
     return amount;
 };
 
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <tr>
             <th class="col-id-cat">ID / Cat</th>
             <th class="col-photo">Photo</th>
-            <th class="col-player">Player (Base) / Club</th>
+            <th class="col-player">Player (Base) / Dept.</th>
             <th class="col-role">Role / Styles</th>
             <th class="col-status">Status (Price)</th>
         </tr>`;
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const team = allTeams.find(t => t.team_id === player.team);
             statusHTML = `
                 <span class="status-team">${team ? team.team_name : 'N/A'}</span>
-                <span class="player-subtext">(${showAmount(player.finalPrice)})</span>
+                <span class="player-subtext">(🪙 ${showAmount(player.finalPrice)})</span>
             `;
         } else if (player.status === 'skipped') {
             statusHTML = '<span class="player-subtext">Skipped</span>';
@@ -68,12 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="player-subtext">Category: ${player.category}</span>
                 </td>
                 <td class="player-photo">
-                    <img src="${player.photo}" alt="${player.name}">
+                    <img src="../../${player.photo}" alt="${player.name}">
                 </td>
                 <td>
                     <span class="player-name">${player.name}</span>
-                    <span class="player-subtext">(${showAmount(player.basePrice)})</span>
-                    <span class="player-subtext">${player.currentClub}</span>
+                    <span class="player-subtext">(🪙 ${showAmount(player.basePrice)})</span>
+                    <span class="player-subtext">${player.department} - ${player.batch}</span>
                 </td>
                 <td>
                     <span class="player-name">${player.role}</span>
@@ -87,10 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Process Data
     const sortedPlayers = allPlayers.sort((a, b) => a.id - b.id);
 
-    const batters = sortedPlayers.filter(p => p.role === 'Batter');
+    const batters = sortedPlayers.filter(p => p.role === 'Batsman');
     const bowlers = sortedPlayers.filter(p => p.role === 'Bowler');
-    const allrounders = sortedPlayers.filter(p => p.role === 'All-Rounder');
-    const wks = sortedPlayers.filter(p => p.role === 'Wicket-Keeper');
+    const allrounders = sortedPlayers.filter(p => p.role === 'All-rounder');
+    const wks = sortedPlayers.filter(p => p.role === 'Wicketkeeper-Batsman');
 
     // 5. Build Tables Correctly
     
