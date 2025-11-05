@@ -53,6 +53,10 @@ let restartUnsoldBtn = document.getElementById("restart-unsold-btn");
 let finishAuctionBtn = document.getElementById("finish-auction-btn");
 let roundSummaryText = document.getElementById("round-summary-text");
 
+//DOM for Final Finish Screen
+let finishScreenModal = document.getElementById("finish-screen-modal");
+let finishModalCloseBtn = document.getElementById("finish-modal-close-btn");
+
 //DOM Manipulation
 let playerName = document.getElementById("player-name");
 let playerPhoto = document.getElementById("player-image")
@@ -95,6 +99,72 @@ function showAmount(amount) {
     }
 
     return show_amount;
+}
+
+/**
+ * Hides the welcome modal and starts the main UI.
+ * This is called by the button handlers.
+ */
+function startMainApplication(isResuming) {
+    if (isResuming) {
+        // Fix auction count if the last loaded player was already done
+        if (state.auctionCount < state.players.length) {
+            const lastPlayerStatus = state.players[state.auctionCount].status;
+            if (lastPlayerStatus === "sold" || lastPlayerStatus === "unsold" || lastPlayerStatus === "skipped") {
+                state.auctionCount++;
+            }
+        }
+    }
+    
+    // Render the UI for the first time
+    renderUI();
+    updateUndoRedoButtons();
+    
+    // Hide the modal
+    welcomeModal.style.display = 'none';
+}
+
+/**
+ * Click handler for "Resume Auction" button.
+ */
+function handleWelcomeResume() {
+    console.log("Resuming auction...");
+    // Data is already pre-loaded by initApp, just start the UI
+    startMainApplication(true);
+}
+
+/**
+ * Click handler for "Start New Auction" button.
+ */
+async function handleWelcomeStartNew() {
+    console.log("Starting new auction...");
+    
+    // Fetch fresh data
+    const players = await getPlayersData();
+    const teams = await getTeamsData();
+
+    // Reset the state completely
+    state = {
+        ...state, // This keeps the loaded tournament data
+        players: players,
+        teams: teams,
+        allPlayers: players.slice(), // Create the master list
+        auctionCount: 0,
+        soldCount: 0,
+        unsoldCount: 0,
+        soldPlayers: [],
+        unsoldPlayers: [],
+        skippedPlayers: []
+    };
+    
+    // Reset history
+    history = {
+        undoStack: [],
+        redoStack: []
+    };
+    
+    console.log("New state created.");
+    startMainApplication(false);
 }
 
 //This Function is used to show tounament details in the screen
@@ -606,8 +676,8 @@ function endAuction() {
     });
 
     saveData();
-    // We no longer call showFinishScreen here, 
-    // but you could if you want a final summary.
+    // Show the final summary screen
+    showFinishScreen();
 }
 
 
@@ -821,6 +891,159 @@ function restartAuctionForUnsold() {
     saveData(); // Save the new "Round 2" state
 }
 
+/**
+ * Closes the final summary screen.
+ */
+function closeFinishScreen() {
+    finishScreenModal.style.display = "none";
+}
+
+/**
+ * Calculates insights and shows the final summary screen.
+ */
+function showFinishScreen() {
+    // 1. --- Calculate Insights ---
+    let totalSpent = 0;
+    const soldPlayers = state.allPlayers.filter(p => p.status === 'sold');
+    
+    soldPlayers.forEach(player => {
+        totalSpent += player.finalPrice;
+    });
+
+    // Sort sold players by price (highest first)
+    soldPlayers.sort((a, b) => b.finalPrice - a.finalPrice);
+    
+    // Get the top 3
+    const top3Buys = soldPlayers.slice(0, 3);
+
+    
+    // 2. --- Populate Modal Content ---
+    
+    // Header
+    document.getElementById('finish-tournament-logo').src = state.tournament ? `../../${state.tournament.logo}` : 'assets/tournament-logo.png';
+    document.getElementById('finish-tournament-name').textContent = state.tournament ? `${state.tournament.name} - ${state.tournament.year}` : 'Auction Complete';
+    
+    // Simple Insights List
+    const insightsList = document.getElementById('finish-insights-list');
+    insightsList.innerHTML = `
+        <li>Total Players Sold: <strong>${soldPlayers.length}</strong></li>
+        <li>Total Money Spent: <strong>$${showAmount(totalSpent)}</strong></li>
+    `;
+
+    // Top 3 Buys
+    const topBuysContainer = document.getElementById('finish-top-buys');
+    topBuysContainer.innerHTML = ''; // Clear old cards
+    
+    for (const player of top3Buys) {
+        const team = state.teams.find(t => t.team_id === player.team);
+        const teamName = team ? team.team_name : 'N/A';
+        const teamColor = team ? team.color : '#555';
+
+        const cardHTML = `
+            <div class="finish-player-card">
+                <div class="card-photo">
+                    <img src="${player.photo}" alt="${player.name}">
+                </div>
+                <div class="card-name">${player.name}</div>
+                <div class="card-price">$${showAmount(player.finalPrice)}</div>
+                <div class="card-team" style="background-color: ${teamColor};">
+                    ${teamName}
+                </div>
+            </div>
+        `;
+        topBuysContainer.innerHTML += cardHTML;
+    }
+    
+    // Team Logos
+    const teamLogosContainer = document.getElementById('finish-team-logos');
+    teamLogosContainer.innerHTML = ''; // Clear old logos
+    state.teams.forEach(team => {
+        teamLogosContainer.innerHTML += `<img src="assets/teams-logo/team_${team.team_id}.png" alt="${team.team_name}">`;
+    });
+
+    // Organizer (You can fill this in)
+    // document.getElementById('finish-organizer-name').textContent = state.tournament.organizer;
+    
+    // **NOTE:** Make sure you have "organizer-photo.png" and "developer-photo.png"
+    // in your "assets" folder, or change the src path in the HTML.
+
+    // 3. --- Show the Modal ---
+    finishScreenModal.style.display = 'flex';
+}
+
+/**
+ * Calculates insights and shows the final summary screen.
+ */
+function showFinishScreen() {
+    // 1. --- Calculate Insights ---
+    let totalSpent = 0;
+    const soldPlayers = state.allPlayers.filter(p => p.status === 'sold');
+    
+    soldPlayers.forEach(player => {
+        totalSpent += player.finalPrice;
+    });
+
+    // Sort sold players by price (highest first)
+    soldPlayers.sort((a, b) => b.finalPrice - a.finalPrice);
+    
+    // Get the top 3
+    const top3Buys = soldPlayers.slice(0, 3);
+
+    
+    // 2. --- Populate Modal Content ---
+    
+    // Header
+    document.getElementById('finish-tournament-logo').src = state.tournament ? `../../${state.tournament.logo}` : 'assets/tournament-logo.png';
+    document.getElementById('finish-tournament-name').textContent = state.tournament ? `${state.tournament.name} - ${state.tournament.year}` : 'Auction Complete';
+    
+    // Simple Insights List
+    const insightsList = document.getElementById('finish-insights-list');
+    insightsList.innerHTML = `
+        <li>Total Players Sold: <strong>${soldPlayers.length}</strong></li>
+        <li>Total Money Spent: <strong>$${showAmount(totalSpent)}</strong></li>
+    `;
+
+    // Top 3 Buys
+    const topBuysContainer = document.getElementById('finish-top-buys');
+    topBuysContainer.innerHTML = ''; // Clear old cards
+    
+    for (const player of top3Buys) {
+        const team = state.teams.find(t => t.team_id === player.team);
+        const teamName = team ? team.team_name : 'N/A';
+        const teamColor = team ? team.color : '#555';
+
+        const cardHTML = `
+            <div class="finish-player-card">
+                <div class="card-photo">
+                    <img src="${player.photo}" alt="${player.name}">
+                </div>
+                <div class="card-name">${player.name}</div>
+                <div class="card-price">$${showAmount(player.finalPrice)}</div>
+                <div class="card-team" style="background-color: ${teamColor};">
+                    ${teamName}
+                </div>
+            </div>
+        `;
+        topBuysContainer.innerHTML += cardHTML;
+    }
+    
+    // Team Logos
+    const teamLogosContainer = document.getElementById('finish-team-logos');
+    teamLogosContainer.innerHTML = ''; // Clear old logos
+    state.teams.forEach(team => {
+        teamLogosContainer.innerHTML += `<img src="assets/teams-logo/team_${team.team_id}.png" alt="${team.team_name}">`;
+    });
+
+    // Organizer (You can fill this in)
+    // document.getElementById('finish-organizer-name').textContent = state.tournament.organizer;
+    
+    // **NOTE:** Make sure you have "organizer-photo.png" and "developer-photo.png"
+    // in your "assets" folder, or change the src path in the HTML.
+
+    // 3. --- Show the Modal ---
+    finishScreenModal.style.display = 'flex';
+}
+
 // Main App Logic
 const initApp = async () => {
     // Load static tournament data first and update the UI immediately.
@@ -844,6 +1067,8 @@ const initApp = async () => {
         if (!state.allPlayers) {
             state.allPlayers = state.players.slice();
         }
+
+        
 
         console.log("Loaded saved state from localStorage.");
 
@@ -928,6 +1153,9 @@ const initApp = async () => {
     // --- LISTENERS FOR FINISH AUCTION ---
     restartUnsoldBtn.addEventListener('click', restartAuctionForUnsold);
     finishAuctionBtn.addEventListener('click', endAuction);
+
+    // --- LISTENERS FOR FINAL SUMMARY ---
+    finishModalCloseBtn.addEventListener('click', closeFinishScreen);
 
     //Add keyboard command for sold unsold next
     // A single, efficient listener for all keyboard shortcuts
