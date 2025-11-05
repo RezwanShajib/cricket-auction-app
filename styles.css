@@ -130,7 +130,7 @@ body {
     grid-row: 3 / span 4;
 
     margin: 0px 0px 20px 0px;
-    padding: 10pxS;
+    padding: 10px;
     justify-self: left;
     align-self: top;
     width: 100%;
@@ -690,4 +690,40 @@ body {
 #round-summary-text {
     font-size: 1.1rem;
     color: var(--color-text-secondary);
+}
+
+/* ======== SEAL ANIMATIONS ======== */
+.sold-seal.show,
+.unsold-seal.show {
+    display: block;
+    animation: sealPop 0.5s ease-out;
+}
+
+@keyframes sealPop {
+    0% {
+        transform: translate(-50%, -50%) rotate(-20deg) scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) rotate(-20deg) scale(1.1);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(-20deg) scale(1);
+        opacity: 1;
+    }
+}
+
+/* ======== BID UPDATE ANIMATION ======== */
+#current-bid.updated {
+    animation: bidPulse 0.4s ease;
+}
+
+@keyframes bidPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+        color: #fbbf24; /* Yellow flash */
+    }
 }

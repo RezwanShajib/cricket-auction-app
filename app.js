@@ -113,7 +113,7 @@ function showTournamentDetails() {
 function showPlayerDetails(i) {
     playerName.innerText = state.players[i].name;
     playerRole.innerText = state.players[i].role;
-    playerPhoto.src = state.players[i].photo;                             //Have to change it later
+    playerPhoto.src = state.players[i].photo;
     playerPhoto.alt = state.players[i].name;
     playerBattingStyle.innerText = state.players[i].battingStyle;
     playerBowlingStyle.innerText = state.players[i].bowlingStyle;
@@ -121,6 +121,10 @@ function showPlayerDetails(i) {
     playerCategory.innerText = state.players[i].category;
     playerId.innerText = state.players[i].id;
     playerBasePrice.innerText = showAmount(state.players[i].basePrice);
+    
+    playerPhoto.onerror = function() {
+        this.src = 'assets/placeholder.png'; // Add a placeholder image
+    };
 
     if(state.players[i].bids.length === 0){
         currentBidAmount.innerText = "00K";
@@ -136,25 +140,58 @@ function showPlayerDetails(i) {
     }
 
 
-    //Button visibility settings
-    if(state.players[state.auctionCount].status == "sold" || state.players[state.auctionCount].status == "unsold"){
+    // --- 💡 NEW CONSOLIDATED UI LOGIC (Using classList) ---
+    const playerStatus = state.players[i].status;
+    const hasBids = state.players[i].bids.length > 0;
+
+    // Use 'style.display' for buttons (this is fine)
+    // Use 'classList' for seals
+    if (playerStatus === "sold") {
+        // Player is SOLD
         soldButton.style.display = "none";
         unsoldButton.style.display = "none";
         nextButton.style.display = "block";
-        soldSeal.classList.add("show");
-        unsoldSeal.classList.add("show");
+        soldSeal.classList.add("show");     // Show SOLD
+        unsoldSeal.classList.remove("show"); // Hide UNSOLD
 
-    } else {
-        if(state.players[state.auctionCount].bids.length == 0){
-            soldButton.style.display = "none";
-            unsoldButton.style.display = "block";
-            nextButton.style.display = "none";
-        } else {
+    } else if (playerStatus === "unsold" || playerStatus === "skipped") {
+        // Player is UNSOLD or SKIPPED
+        soldButton.style.display = "none";
+        unsoldButton.style.display = "none";
+        nextButton.style.display = "block";
+        soldSeal.classList.remove("show");  // Hide SOLD
+        unsoldSeal.classList.add("show"); // Show UNSOLD
+
+    } else { 
+        // Player is "not-auctioned" (i.e., bidding is active)
+        soldSeal.classList.remove("show");  // Hide SOLD
+        unsoldSeal.classList.remove("show"); // Hide UNSOLD
+
+        if (hasBids) {
+            // Active with bids
             soldButton.style.display = "block";
             unsoldButton.style.display = "none";
             nextButton.style.display = "none";
+        } else {
+            // Active with NO bids
+            soldButton.style.display = "none";
+            unsoldButton.style.display = "block";
+            nextButton.style.display = "none";
         }
     }
+}
+
+//Bid Increament
+function bidIncrement(currentBid) {
+  if (currentBid >= 1000000) { // 1000k
+    return 25000; // Add 25k
+  } else if (currentBid >= 500000) { // 500k
+    return 20000; // Add 20k
+  } else if (currentBid >= 200000) { // 200k
+    return 10000; // Add 10k
+  } else { // Less than 200k
+    return 5000; // Add 5k
+  }
 }
 
 function bidPlayer(team_id) {
@@ -179,7 +216,7 @@ function bidPlayer(team_id) {
 
         // Prevent same team from bidding twice in a row
         if (lastBid.team != team_id && team.remaining_budget >= lastBid.amount + 5000) {        //Make sure bidder has more money remaining than the player's next bid amount
-            bidAmount = lastBid.amount + 5000;
+            bidAmount = lastBid.amount + bidIncrement(lastBid.amount);
         } else {
             console.log(lastBid.team == team_id ? `${state.teams[teamIndex].team_name} tried to bid twice in a row. NOT ACCEPTED.` : `${state.teams[teamIndex].team_name} doesn't have enough money to bid for this player.`);
             return; // Don't update UI if bid not accepted
@@ -222,17 +259,24 @@ function unsoldPlayer() {
         return;
     }
 
+    const player = state.players[state.auctionCount];
+
     //Save history
     saveHistory();
 
-    state.unsoldPlayers.push(state.players[state.auctionCount].id);   //Take the player id in the state.unsoldPlayers list
-    state.players[state.auctionCount].status = "unsold";       // change the player status to unsold
+    state.unsoldPlayers.push(player.id); // Use the new variable
+    player.status = "unsold";            // Use the new variable
+
+    const playerInMasterList = state.allPlayers.find(p => p.id === player.id);
+    if (playerInMasterList) {
+        playerInMasterList.status = "unsold";
+    }
 
     state.unsoldCount++;             //Increamented the unsold count
 
     console.log(`${state.players[state.auctionCount].name} remains unsold.`);
 
-    unsoldSeal.style.display = "block"; //Show the unsold seal
+    // unsoldSeal.style.display = "block"; //Show the unsold seal
 
     //Update Screen
     renderUI()
@@ -266,6 +310,14 @@ function soldPlayer() {
     state.players[state.auctionCount].finalPrice = lastBid.amount;
     state.players[state.auctionCount].team = lastBid.team;
 
+    // --- 💡 FIX: UPDATE THE MASTER LIST (state.allPlayers) ---
+    const playerInMasterList = state.allPlayers.find(p => p.id === player.id);
+    if (playerInMasterList) {
+        playerInMasterList.status = "sold";
+        playerInMasterList.finalPrice = lastBid.amount;
+        playerInMasterList.team = lastBid.team;
+    }
+
     const teamIndex = lastBid.team - 11;         //team_id - 11 [Team ID starts from 11]
 
     //update the main team object
@@ -280,7 +332,7 @@ function soldPlayer() {
     renderTeams();
 
     //Show the SOLD seal
-    soldSeal.style.display = "block";
+    // soldSeal.style.display = "block";
 
     //Update Screem
     renderUI();
@@ -303,8 +355,8 @@ function nextPlayer() {
     }
 
     //Hide All Seals
-    unsoldSeal.style.display = "none"; //Hide the unsold seal
-    soldSeal.style.display = "none"; //Hide the sold seal
+    // unsoldSeal.style.display = "none"; //Hide the unsold seal
+    // soldSeal.style.display = "none"; //Hide the sold seal
 }
 
 function skipPlayer() {
@@ -317,10 +369,18 @@ function skipPlayer() {
         return;
     }
 
-    state.players[state.auctionCount].status = "skipped";      //Change the player status to "skipped"
-    console.log(`${state.players[state.auctionCount].name} is skipped`);
+    const player = state.players[state.auctionCount]; // Get player
+    player.status = "skipped";           //Change the player status to "skipped"
+    console.log(`${player.name} is skipped`);
 
-    state.skippedPlayers.push(state.players[state.auctionCount].id);        //add players id to skipped players list
+    state.skippedPlayers.push(player.id);        //add players id to skipped players list
+
+    // --- 💡 FIX: UPDATE THE MASTER LIST (state.allPlayers) ---
+    const playerInMasterList = state.allPlayers.find(p => p.id === player.id);
+    if (playerInMasterList) {
+        playerInMasterList.status = "skipped";
+    }
+    // --- END OF FIX ---
 
     //Load Next Player's Data
     nextPlayer();
@@ -472,16 +532,18 @@ function undoChange() {
     //Save the current state
     saveData();
 
-
-    //Show the seal if necessary
-    if(state.players[state.auctionCount].status == "sold"){
-        soldSeal.style.display = "block";
-    } else if(state.players[state.auctionCount].status == "unsold") {
-        unsoldSeal.style.display = "block";
+    const currentPlayer = state.players[state.auctionCount];
+    if (currentPlayer.status === "sold") {
+        soldSeal.classList.add("show");
+        unsoldSeal.classList.remove("show");
+    } else if (currentPlayer.status === "unsold" || currentPlayer.status === "skipped") {
+        unsoldSeal.classList.add("show");
+        soldSeal.classList.remove("show");
     } else {
-        soldSeal.style.display = "none";
-        unsoldSeal.style.display = "none";
+        soldSeal.classList.remove("show");
+        unsoldSeal.classList.remove("show");
     }
+
     updateUndoRedoButtons();
 
 }
@@ -508,16 +570,18 @@ function redoChange() {
     //Save the current state
     saveData();
 
-
-    //Show the seal if necessary
-    if(state.players[state.auctionCount].status == "sold"){
-        soldSeal.style.display = "block";
-    } else if(state.players[state.auctionCount].status == "unsold") {
-        unsoldSeal.style.display = "block";
+    const currentPlayer = state.players[state.auctionCount];
+    if (currentPlayer.status === "sold") {
+        soldSeal.classList.add("show");
+        unsoldSeal.classList.remove("show");
+    } else if (currentPlayer.status === "unsold" || currentPlayer.status === "skipped") {
+        unsoldSeal.classList.add("show");
+        soldSeal.classList.remove("show");
     } else {
-        soldSeal.style.display = "none";
-        unsoldSeal.style.display = "none";
+        soldSeal.classList.remove("show");
+        unsoldSeal.classList.remove("show");
     }
+
     updateUndoRedoButtons();
 
 }
