@@ -94,5 +94,1463 @@
         "bids": [],
         "finalPrice": null,
         "team": null
+    },
+    {
+        "id":107,
+        "name":"Ahsan Ullah",
+        "photo":"assets/players-photo/107.png",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Avionics)",
+        "batch":"6th",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":108,
+        "name":"Sazzidul Ahmed Sabib",
+        "photo":"assets/players-photo/108.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Avionics)",
+        "batch":"3rd",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":109,
+        "name":"Koushik kar",
+        "photo":"assets/players-photo/109.png",
+        "role":"Bowler",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm spin",
+        "department":"AME (Avionics)",
+        "batch":"5th",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":110,
+        "name":"Snigdha Das",
+        "photo":"assets/players-photo/110.jpg",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AE (Avionics)",
+        "batch":"2nd",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":111,
+        "name":"Rajaul Ahmed Mehedi",
+        "photo":"assets/players-photo/111.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Avionics)",
+        "batch":"4th",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":112,
+        "name":"Ahmed Munirus Salehin",
+        "photo":"assets/players-photo/112.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Aerospace)",
+        "batch":"4th",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":113,
+        "name":"Md Mahdy Islam ",
+        "photo":"assets/players-photo/113.webp",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Aerospace)",
+        "batch":"5th",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":114,
+        "name":"Abdullah Al Mahmud",
+        "photo":"assets/players-photo/114.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Aerospace)",
+        "batch":"5th",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":115,
+        "name":"Shadat Bin Haras Shadi ",
+        "photo":"assets/players-photo/115.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Avionics)",
+        "batch":"3rd",
+        "category":"A",
+        "basePrice":130,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":116,
+        "name":"TANIM AHMED",
+        "photo":"assets/players-photo/116.jpeg",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Aerospace)",
+        "batch":"6th",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":117,
+        "name":"Shah Muhit ",
+        "photo":"assets/players-photo/117.jpg",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AE (Avionics)",
+        "batch":"3rd",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":118,
+        "name":"Borshon Chakrabarty ",
+        "photo":"assets/players-photo/118.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm spin",
+        "department":"AE (Aerospace)",
+        "batch":"6th",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":119,
+        "name":"Raiyan Ahammad",
+        "photo":"assets/players-photo/119.jpg",
+        "role":"Bowler",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Aerospace)",
+        "batch":"6th",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":120,
+        "name":"BAYAZID IBN HOSSAIN ",
+        "photo":"assets/players-photo/120.png",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Left-arm spin",
+        "department":"AME (Aerospace)",
+        "batch":"3rd",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":121,
+        "name":"Priyo Saha",
+        "photo":"assets/players-photo/121.jpg",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AE (Avionics)",
+        "batch":"6th",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":122,
+        "name":"Muaz Hossain ",
+        "photo":"assets/players-photo/122.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Aerospace)",
+        "batch":"6th",
+        "category":"A",
+        "basePrice":130,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":123,
+        "name":"MD. ABDUR RAZZAK LABIB",
+        "photo":"assets/players-photo/123.webp",
+        "role":"Bowler",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Avionics)",
+        "batch":"6th",
+        "category":"A",
+        "basePrice":130,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":124,
+        "name":"MD. Sajidur Rahman ",
+        "photo":"assets/players-photo/124.jpg",
+        "role":"Wicketkeeper-Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AME (Aerospace)",
+        "batch":"2nd",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":125,
+        "name":"FAHIM AHAMED ",
+        "photo":"assets/players-photo/125.png",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Avionics)",
+        "batch":"3rd",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":126,
+        "name":"MD. Redwanul Bary Rahat ",
+        "photo":"assets/players-photo/126.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Aerospace)",
+        "batch":"6th",
+        "category":"A",
+        "basePrice":130,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":127,
+        "name":"MD Soyad Hasan Tarafder",
+        "photo":"assets/players-photo/127.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Avionics)",
+        "batch":"1st",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":128,
+        "name":"fuad hasan Shanto ",
+        "photo":"assets/players-photo/128.jpg",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AME (Aerospace)",
+        "batch":"3rd",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":129,
+        "name":"Muhaimin nihal",
+        "photo":"assets/players-photo/129.jpg",
+        "role":"Bowler",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Left-arm spin",
+        "department":"AE (Avionics)",
+        "batch":"2nd",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":130,
+        "name":"Md.Tanvir Ahmed",
+        "photo":"assets/players-photo/130.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Left-hand bat",
+        "bowlingStyle":"Left-arm spin",
+        "department":"AME (Aerospace)",
+        "batch":"6th",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":131,
+        "name":"Md Tamim Reza",
+        "photo":"assets/players-photo/131.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Avionics)",
+        "batch":"4th",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":132,
+        "name":"Raiyan Nahid ",
+        "photo":"assets/players-photo/132.png",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AME (Avionics)",
+        "batch":"3rd",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":133,
+        "name":"ialifislam2005@gmail.com",
+        "photo":"assets/players-photo/133.webp",
+        "role":"Batsman",
+        "battingStyle":"Left-hand bat",
+        "bowlingStyle":"None",
+        "department":"AME (Aerospace)",
+        "batch":"6th",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":134,
+        "name":"Tonon Mridha ",
+        "photo":"assets/players-photo/134.png",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Aerospace)",
+        "batch":"5th",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":135,
+        "name":"Md Mahfujur Rahaman ",
+        "photo":"assets/players-photo/135.png",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Avionics)",
+        "batch":"3rd",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":136,
+        "name":"Farhan Shahriar Labib ",
+        "photo":"assets/players-photo/136.png",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AE (Aerospace)",
+        "batch":"5th",
+        "category":"A",
+        "basePrice":130,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":137,
+        "name":"Misbah Ul Haque",
+        "photo":"assets/players-photo/137.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Avionics)",
+        "batch":"2nd",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":138,
+        "name":"Mashfi Moin",
+        "photo":"assets/players-photo/138.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Aerospace)",
+        "batch":"5th",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":139,
+        "name":"Md.Tasnimul Hasan Raiyan ",
+        "photo":"assets/players-photo/139.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Aerospace)",
+        "batch":"5th",
+        "category":"A",
+        "basePrice":130,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":140,
+        "name":"Md. Rezwan Zani (Shajib)",
+        "photo":"assets/players-photo/140.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Avionics)",
+        "batch":"4th",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":141,
+        "name":"Rifath Hasan ",
+        "photo":"assets/players-photo/141.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Aerospace)",
+        "batch":"6th",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":142,
+        "name":"Mohammad Monabber Hossain ",
+        "photo":"assets/players-photo/142.jpg",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AME (Avionics)",
+        "batch":"2nd",
+        "category":"A",
+        "basePrice":130,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":143,
+        "name":"Sazidul Amin Shahriar ",
+        "photo":"assets/players-photo/143.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Avionics)",
+        "batch":"2nd",
+        "category":"A",
+        "basePrice":130,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":144,
+        "name":"Jamil Al Zim",
+        "photo":"assets/players-photo/144.jpg",
+        "role":"Wicketkeeper-Batsman",
+        "battingStyle":"Left-hand bat",
+        "bowlingStyle":"None",
+        "department":"AE (Avionics)",
+        "batch":"4th",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":145,
+        "name":"Khandokar Ahosanul Islam Jisan ",
+        "photo":"assets/players-photo/145.jpg",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AE (Avionics)",
+        "batch":"4th",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":146,
+        "name":"Tahsin Ahmed",
+        "photo":"assets/players-photo/146.jpg",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AME (Aerospace)",
+        "batch":"5th",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":147,
+        "name":"Miraz",
+        "photo":"assets/players-photo/147.jpg",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AE (Avionics)",
+        "batch":"3rd",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":148,
+        "name":"Md Maruf Hosen",
+        "photo":"assets/players-photo/148.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Avionics)",
+        "batch":"6th",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":149,
+        "name":"Md. Azharul Islam ",
+        "photo":"assets/players-photo/149.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Avionics)",
+        "batch":"3rd",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":150,
+        "name":"Md Saymum Islam Siyam",
+        "photo":"assets/players-photo/150.jpeg",
+        "role":"All-rounder",
+        "battingStyle":"Left-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Avionics)",
+        "batch":"3rd",
+        "category":"A",
+        "basePrice":130,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":151,
+        "name":"Habibur Rahamn",
+        "photo":"assets/players-photo/151.jpg",
+        "role":"Bowler",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Avionics)",
+        "batch":"2nd",
+        "category":"A",
+        "basePrice":130,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":152,
+        "name":"Abdullah bin Kabir ",
+        "photo":"assets/players-photo/152.webp",
+        "role":"Bowler",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Avionics)",
+        "batch":"3rd",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":153,
+        "name":"Mehran Bin Masud Khan Apurbo ",
+        "photo":"assets/players-photo/153.jpg",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AME (Aerospace)",
+        "batch":"3rd",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":155,
+        "name":"Mehraj Ayon ",
+        "photo":"assets/players-photo/155.jpg",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AE (Avionics)",
+        "batch":"3rd",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":156,
+        "name":"Abu Arif Khan",
+        "photo":"assets/players-photo/156.png",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AE (Avionics)",
+        "batch":"5th",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":157,
+        "name":"Zephyr Uddin",
+        "photo":"assets/players-photo/157.jpg",
+        "role":"Wicketkeeper-Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Aerospace)",
+        "batch":"6th",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":158,
+        "name":"Xavier Milton",
+        "photo":"assets/players-photo/158.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Aerospace)",
+        "batch":"6th",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":159,
+        "name":"Mohi Uddin Tazbid",
+        "photo":"assets/players-photo/159.JPG",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Avionics)",
+        "batch":"3rd",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":160,
+        "name":"Tyseer Ninad",
+        "photo":"assets/players-photo/160.jpg",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Left-arm fast",
+        "department":"AE (Avionics)",
+        "batch":"1st",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":161,
+        "name":"Monzorul Shourov",
+        "photo":"assets/players-photo/161.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Aerospace)",
+        "batch":"4th",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":162,
+        "name":"Sujon chandra mohonto",
+        "photo":"assets/players-photo/162.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Avionics)",
+        "batch":"4th",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":163,
+        "name":"MD.Hasibul Siddique ",
+        "photo":"assets/players-photo/163.png",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm spin",
+        "department":"AME (Avionics)",
+        "batch":"5th",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":164,
+        "name":"Md. Mujahidul Islam ",
+        "photo":"assets/players-photo/164.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Aerospace)",
+        "batch":"2nd",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":165,
+        "name":"Muhtasim Rahman",
+        "photo":"assets/players-photo/165.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm spin",
+        "department":"AME (Aerospace)",
+        "batch":"5th",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":166,
+        "name":"MD. NAZIM UDDIN SAGOR ",
+        "photo":"assets/players-photo/166.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Aerospace)",
+        "batch":"5th",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":167,
+        "name":"Pritom mondal",
+        "photo":"assets/players-photo/167.png",
+        "role":"Wicketkeeper-Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AME (Avionics)",
+        "batch":"1st",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":168,
+        "name":"Mohammad Sami ",
+        "photo":"assets/players-photo/168.webp",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AME (Aerospace)",
+        "batch":"2nd",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":169,
+        "name":"Md Roknuzzaman Rikon",
+        "photo":"assets/players-photo/169.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Avionics)",
+        "batch":"3rd",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":170,
+        "name":"Saeed Atiquee",
+        "photo":"assets/players-photo/170.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Aerospace)",
+        "batch":"2nd",
+        "category":"A",
+        "basePrice":130,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":171,
+        "name":"Md Saiful Islam ",
+        "photo":"assets/players-photo/171.jpg",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AE (Aerospace)",
+        "batch":"2nd",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":172,
+        "name":"Md. RASHID KARIM RAMIM ",
+        "photo":"assets/players-photo/172.jpg",
+        "role":"Bowler",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Left-arm fast",
+        "department":"AE (Avionics)",
+        "batch":"3rd",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":173,
+        "name":"Tanvir Anowar",
+        "photo":"assets/players-photo/173.png",
+        "role":"Bowler",
+        "battingStyle":"Left-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Avionics)",
+        "batch":"2nd",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":174,
+        "name":"Mirza Kabir ",
+        "photo":"assets/players-photo/174.jpg",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Aerospace)",
+        "batch":"6th",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":175,
+        "name":"Gazi Md. Saif",
+        "photo":"assets/players-photo/175.jpg",
+        "role":"Wicketkeeper-Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AE (Avionics)",
+        "batch":"4th",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":176,
+        "name":"Md Mahmudul Hassan ",
+        "photo":"assets/players-photo/176.png",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Avionics)",
+        "batch":"5th",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":177,
+        "name":"Zayed Bin Hasan Siam ",
+        "photo":"assets/players-photo/177.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Avionics)",
+        "batch":"2nd",
+        "category":"A",
+        "basePrice":130,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":178,
+        "name":"Efty",
+        "photo":"assets/players-photo/178.png",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Avionics)",
+        "batch":"3rd",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":179,
+        "name":"Md Tahsin Hoque ",
+        "photo":"assets/players-photo/179.JPG",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm spin",
+        "department":"AME (Avionics)",
+        "batch":"1st",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":181,
+        "name":"Merajul Haque",
+        "photo":"assets/players-photo/181.jpg",
+        "role":"Bowler",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Aerospace)",
+        "batch":"4th",
+        "category":"A",
+        "basePrice":130,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":182,
+        "name":"Holyjith Paul Himel",
+        "photo":"assets/players-photo/182.jpg",
+        "role":"Wicketkeeper-Batsman",
+        "battingStyle":"Left-hand bat",
+        "bowlingStyle":"None",
+        "department":"AE (Aerospace)",
+        "batch":"4th",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":183,
+        "name":"MD. AHAD HOSEN",
+        "photo":"assets/players-photo/183.png",
+        "role":"Wicketkeeper-Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AME (Aerospace)",
+        "batch":"1st",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":184,
+        "name":"Tasdid Hossain Abir",
+        "photo":"assets/players-photo/184.jpeg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Left-arm spin",
+        "department":"AE (Avionics)",
+        "batch":"4th",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":185,
+        "name":"MD. MEHEDI HASAN",
+        "photo":"assets/players-photo/185.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AME (Aerospace)",
+        "batch":"1st",
+        "category":"A+",
+        "basePrice":150,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":186,
+        "name":"Asadul Islam Hasif ",
+        "photo":"assets/players-photo/186.jpg",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AE (Aerospace)",
+        "batch":"4th",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":187,
+        "name":"Naeem",
+        "photo":"assets/players-photo/187.jpeg",
+        "role":"Batsman",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"None",
+        "department":"AE (Aerospace)",
+        "batch":"4th",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":189,
+        "name":"Md. Abuzer Gifari Jubaer ",
+        "photo":"assets/players-photo/189.jpg",
+        "role":"All-rounder",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm spin",
+        "department":"AE (Aerospace)",
+        "batch":"4th",
+        "category":"C",
+        "basePrice":100,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
+    },
+    {
+        "id":190,
+        "name":"Md Rony",
+        "photo":"assets/players-photo/190.jpg",
+        "role":"Bowler",
+        "battingStyle":"Right-hand bat",
+        "bowlingStyle":"Right-arm fast",
+        "department":"AE (Avionics)",
+        "batch":"2nd",
+        "category":"B",
+        "basePrice":120,
+        "status":"not-auctioned",
+        "bids":[
+
+        ],
+        "finalPrice":null,
+        "team":null
     }
 ]

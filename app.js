@@ -670,7 +670,7 @@ function openBudgetModal() {
         
         row.innerHTML = `
             <label for="budget-input-${team.team_id}">${team.team_name}</label>
-            <input type="number" id="budget-input-${team.team_id}" value="${team.team_budget}" step="50000">
+            <input type="number" id="budget-input-${team.team_id}" value="${team.team_budget}" step="50">
             <div class="budget-controls">
                 <button data-team="${team.team_id}" data-action="subtract">-</button>
                 <button data-team="${team.team_id}" data-action="add">+</button>
@@ -744,10 +744,9 @@ function openDirectBidModal() {
     });
 
     // Set a suggested bid amount
-    let suggestedAmount = player.basePrice;
-    if (player.bids.length > 0) {
-        suggestedAmount = player.bids[player.bids.length - 1].amount + 5000;
-    }
+    // Get the next increment from your new function
+    let nextIncrement = bidIncrement(player.bids[player.bids.length - 1].amount);
+    suggestedAmount = player.bids[player.bids.length - 1].amount + nextIncrement;
     directBidAmountInput.value = suggestedAmount;
 
     directBidModal.style.display = 'flex';

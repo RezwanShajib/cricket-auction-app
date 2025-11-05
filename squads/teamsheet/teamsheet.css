@@ -127,4 +127,13 @@ tbody tr:nth-child(even) {
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
+    .print-footer {
+        display: block;
+        text-align: center;
+        font-size: 10pt;
+        color: #555;
+        margin-top: 20px;
+        border-top: 1px solid #ccc;
+        padding-top: 10px;
+    }
 }
