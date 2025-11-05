@@ -9,6 +9,29 @@
 
 </head>
 <body>
+
+    <div id="welcome-modal" class="modal-overlay" style="display: none;"> <div class="modal-content" style="width: 400px; text-align: center;">
+            
+            <h2>Auction Manager</h2>
+            <p>Welcome! How would you like to proceed?</p>
+
+            <div class="welcome-button-container">
+                <button id="welcome-resume-btn" class="welcome-btn" style="display: none;">
+                    <span class="btn-icon">▶️</span>
+                    Resume Auction
+                </button>
+                <button id="welcome-start-new-btn" class="welcome-btn" style="display: none;">
+                    <span class="btn-icon">✨</span>
+                    Start New Auction
+                </button>
+                <button id="welcome-reset-btn" class="welcome-btn danger-btn" style="display: none;">
+                    <span class="btn-icon">🗑️</span>
+                    Reset All Data
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div class="big-container" id="big-container">
         <div class="sections" id="logo-section">
             <img src="assets/tournament-logo.png" alt="Tournament Logo" class="tournament-logo">
@@ -210,11 +233,11 @@
             
             <div class="welcome-footer">
                 <div class="footer-profile">
-                    <img src="assets/organizer-photo.png" alt="Organizer" class="footer-photo">
+                    <img src="assets/organizer.png" alt="Organizer" class="footer-photo">
                     <p><strong>Organized By:</strong> <span id="finish-organizer-name">Your Organization</span></p>
                 </div>
                 <div class="footer-profile">
-                    <img src="assets/developer-photo.png" alt="Developer" class="footer-photo">
+                    <img src="assets/developer.jpg" alt="Developer" class="footer-photo">
                     <p><strong>Auction App By:</strong> Rezwan</p>
                 </div>
             </div>

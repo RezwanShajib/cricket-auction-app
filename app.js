@@ -34,6 +34,12 @@ const getTeamsData = async () => {
     return await response.json();
 };
 
+//DOM for Welcome Modal
+let welcomeModal = document.getElementById("welcome-modal");
+let welcomeResumeBtn = document.getElementById("welcome-resume-btn");
+let welcomeStartNewBtn = document.getElementById("welcome-start-new-btn");
+let welcomeResetBtn = document.getElementById("welcome-reset-btn");
+
 //Buttons for Editing Budgets
 let budgetModal = document.getElementById("budget-modal");
 let modalCloseBtn = document.getElementById("modal-close-btn");
@@ -133,38 +139,8 @@ function handleWelcomeResume() {
     startMainApplication(true);
 }
 
-/**
- * Click handler for "Start New Auction" button.
- */
-async function handleWelcomeStartNew() {
-    console.log("Starting new auction...");
-    
-    // Fetch fresh data
-    const players = await getPlayersData();
-    const teams = await getTeamsData();
-
-    // Reset the state completely
-    state = {
-        ...state, // This keeps the loaded tournament data
-        players: players,
-        teams: teams,
-        allPlayers: players.slice(), // Create the master list
-        auctionCount: 0,
-        soldCount: 0,
-        unsoldCount: 0,
-        soldPlayers: [],
-        unsoldPlayers: [],
-        skippedPlayers: []
-    };
-    
-    // Reset history
-    history = {
-        undoStack: [],
-        redoStack: []
-    };
-    
-    console.log("New state created.");
-    startMainApplication(false);
+function closeWelcomeModal() {
+    welcomeModal.style.display = 'none';
 }
 
 //This Function is used to show tounament details in the screen
@@ -1058,11 +1034,14 @@ const initApp = async () => {
     const savedDataJSON = localStorage.getItem('auctionData');
 
     if (savedDataJSON) {
+        welcomeResumeBtn.style.display = 'flex';
+        welcomeResetBtn.style.display = 'flex';
+
         // Logic for loading a SAVED game
         let savedData = JSON.parse(savedDataJSON);
         state = savedData.auctionState;
         history = savedData.historyData;
-
+ 
         // Add this 'if' block to support old save files
         if (!state.allPlayers) {
             state.allPlayers = state.players.slice();
@@ -1084,6 +1063,8 @@ const initApp = async () => {
         }
 
     } else {
+        welcomeStartNewBtn.style.display = 'flex';
+
         // Logic for starting a NEW game
         console.log("No saved state found. Starting a new auction.");
         state.players = await getPlayersData();
@@ -1134,6 +1115,13 @@ const initApp = async () => {
 
 
 
+    // Add Welcome Modal Listeners
+    welcomeResumeBtn.addEventListener('click', closeWelcomeModal);
+    welcomeStartNewBtn.addEventListener('click', closeWelcomeModal);
+    welcomeResetBtn.addEventListener('click', resetAll); // Calls your existing reset function
+
+    // Show the modal
+    welcomeModal.style.display = 'flex';
      
     //Click event for Buttons
     unsoldButton.addEventListener("click", () => unsoldPlayer());
